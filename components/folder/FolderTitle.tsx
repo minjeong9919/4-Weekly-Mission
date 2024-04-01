@@ -14,35 +14,37 @@ const FolderTitle = ({ titleName, setIsModal }: FolderTitlePropsType) => {
       <Title>{titleName}</Title>
       {titleName !== "전체" && (
         <OptionBox>
-          <Option
-            onClick={() => {
-              setIsModal("공유");
-            }}
-          >
-            <Share />
-            <OptionText>공유</OptionText>
-          </Option>
-          <Option
-            onClick={() => {
-              setIsModal("이름 변경");
-            }}
-          >
-            <Pen />
-            <OptionText>이름 변경</OptionText>
-          </Option>
-          <Option
-            onClick={() => {
-              setIsModal("삭제");
-            }}
-          >
-            <Trash />
-            <OptionText>삭제</OptionText>
-          </Option>
+          {titles.map((title) => (
+            <Option
+              key={title.name}
+              onClick={() => {
+                setIsModal(title.name);
+              }}
+            >
+              {title.svg}
+              <OptionText>{title.name}</OptionText>
+            </Option>
+          ))}
         </OptionBox>
       )}
     </Container>
   );
 };
+
+const titles = [
+  {
+    name: "공유",
+    svg: <Share />,
+  },
+  {
+    name: "이름 변경",
+    svg: <Pen />,
+  },
+  {
+    name: "삭제",
+    svg: <Trash />,
+  },
+];
 
 const Container = styled.div`
   width: 1060px;
