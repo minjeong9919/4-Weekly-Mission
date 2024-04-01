@@ -8,7 +8,7 @@ import icon_kakao from "@/assets/icons/icon_kakao.png";
 import { BlueButton } from "@/components/common/BlueButton";
 import EmailPwdInput from "@/components/SignIn_Up/EmailPwdInput";
 
-export default function LogIn() {
+export default function Signup() {
   return (
     <BackgroundDiv>
       <ContainerDiv>
@@ -17,18 +17,23 @@ export default function LogIn() {
             <Image src={login_logo} alt="login log" />
           </Link>
           <p>
-            회원이 아니신가요?{" "}
-            <Link href="./Signup" id="header-link">
-              <span>회원 가입하기</span>
+            이미 회원이신가요?{" "}
+            <Link href="./Signin" id="header-link">
+              <span>로그인 하기</span>
             </Link>
           </p>
         </TitleDiv>
         <InputBoxDiv>
           <EmailPwdInput title="이메일" type="email" />
           <EmailPwdInput title="비밀번호" type="password" isEyeIcon={true} />
+          <EmailPwdInput
+            title="비밀번호 확인"
+            type="password"
+            isEyeIcon={true}
+          />
         </InputBoxDiv>
         <BlueButton
-          text="로그인"
+          text="회원가입"
           width="100%"
           margin="0px 0px 32px"
           padding="16px 20px"
@@ -36,7 +41,7 @@ export default function LogIn() {
           fontSize="18px"
         />
         <SocialLoginDiv>
-          <span>소셜 로그인</span>
+          <span>다른 방식으로 가입하기</span>
           <SocialIconDiv>
             <div id="googleIconBackGround">
               <Link href="https://www.google.com/">
@@ -117,23 +122,6 @@ const InputDiv = styled.div`
   gap: 12px;
   position: relative;
 `;
-const EmailPasswordInput = styled.input`
-  width: 100%;
-  padding: 18px 15px;
-  border: 1px solid var(--Grey_300);
-  border-radius: 8px;
-
-  font-family: Pretendard;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px;
-
-  &:focus {
-    outline: none;
-    border: 1px solid var(--Primary);
-  }
-`;
 
 const SocialLoginDiv = styled.div`
   width: 100%;
@@ -173,13 +161,4 @@ const SocialIconDiv = styled.div`
   & > #kakaoIconBackGround {
     background-color: #f5e14b;
   }
-`;
-
-const EyeIconDiv = styled.div`
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  top: 53px;
-  right: 16px;
-  cursor: pointer;
 `;
