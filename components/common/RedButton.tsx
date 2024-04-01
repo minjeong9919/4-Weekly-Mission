@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
-import { COLORS } from "../../constants/colors";
-import { ButtonProps } from "./BlueButton";
+import { COLORS } from "@/constants/colors";
+import { CommonButtonCustomProps } from "@/constants/commonTypes";
 
 export const RedButton = ({
   text,
@@ -10,7 +10,7 @@ export const RedButton = ({
   padding,
   fontSize,
   radius,
-}) => {
+}: CommonButtonCustomProps) => {
   return (
     <Button
       width={width}
@@ -26,7 +26,7 @@ export const RedButton = ({
   );
 };
 
-const Button = styled.button<ButtonProps>`
+const Button = styled.button<CommonButtonCustomProps>`
   display: block;
   width: ${({ width }) => width || "auto"};
   height: ${({ height }) => height || "auto"};
@@ -34,7 +34,7 @@ const Button = styled.button<ButtonProps>`
   border-radius: ${({ radius }) => radius || "0px"};
   margin: ${({ margin }) => margin || "auto"};
   padding: ${({ padding }) => padding || "auto"};
-  background: ${COLORS.Red};
+  background: var(--Red);
   cursor: pointer;
 
   color: ${({ color }) => color};

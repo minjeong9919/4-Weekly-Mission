@@ -1,16 +1,6 @@
 import { styled } from "styled-components";
 import { COLORS } from "../../constants/colors";
-
-export interface ButtonProps {
-  text?: string;
-  width?: string;
-  height?: string;
-  radius?: string;
-  margin?: string;
-  padding?: string;
-  fontSize?: string;
-  onBtnHandle?: () => {};
-}
+import { CommonButtonCustomProps } from "@/constants/commonTypes";
 
 export const BlueButton = ({
   text,
@@ -21,7 +11,7 @@ export const BlueButton = ({
   fontSize,
   radius,
   onBtnHandle,
-}: ButtonProps) => {
+}: CommonButtonCustomProps) => {
   return (
     <Button
       width={width}
@@ -37,7 +27,7 @@ export const BlueButton = ({
     </Button>
   );
 };
-const Button = styled.button<ButtonProps>`
+const Button = styled.button<CommonButtonCustomProps>`
   display: block;
   width: ${({ width }) => width || "auto"};
   min-width: max-content;

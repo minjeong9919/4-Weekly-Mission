@@ -1,7 +1,6 @@
-import { styled } from "styled-components";
-import { COLORS } from "../../../constants/colors";
-import { DeleteModal } from "../../../components/common/modals/DeleteModal";
-import { AddToFolder } from "../../../components/common/modals/AddToFolder";
+import styled from "styled-components";
+import { DeleteModal } from "@/components/common/modals/DeleteModal";
+import { AddToFolder } from "@/components/common/modals/AddToFolder";
 
 type PopOverPropTypes = {
   $isPopOverVisible: boolean;
@@ -26,11 +25,11 @@ export const PopOver = ({
   return (
     <>
       <DeleteModal
-        $isModalVisible={$isModalVisible}
+        isModalVisible={$isModalVisible}
         setIsModalVisible={setIsModalVisible}
       ></DeleteModal>
       <AddToFolder
-        $isModalVisible={$isModalVisible}
+        isModalVisible={$isModalVisible}
         setIsModalVisible={setIsModalVisible}
       ></AddToFolder>
       <MenuOptions $isVisible={$isPopOverVisible} $top={$top} $right={$right}>
@@ -80,7 +79,7 @@ const Option = styled.p`
 
   &:hover {
     cursor: pointer;
-    color: ${COLORS.Primary};
-    background-color: ${COLORS.Grey_100};
+    color: var(--Primary);
+    background-color: var(--Grey_100);
   }
 `;

@@ -1,22 +1,12 @@
 import styled from "styled-components";
 import FolderItem from "./FolderItem";
+import { CommonFolderInfoProps } from "@/constants/commonTypes";
 
 type FolderPropsType = {
   items: any;
   $isModalVisible: any;
   setIsModalVisible: any;
 };
-
-interface itemPropsType {
-  imageSource?: string;
-  image_source?: string;
-  createdAt?: Date;
-  created_at?: Date;
-  description: string;
-  url: string;
-  id: string;
-  favorite: boolean;
-}
 
 function FolderList({
   items,
@@ -26,7 +16,7 @@ function FolderList({
   return (
     <FolderListContainerDiv>
       <FolderListGridBoxDiv>
-        {items.map((item: itemPropsType) => {
+        {items.map((item: CommonFolderInfoProps) => {
           {
             return (
               <FolderItem

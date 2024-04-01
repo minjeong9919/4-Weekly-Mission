@@ -7,18 +7,10 @@ import logo from "@/assets/icons/logo.png";
 import { PopOver } from "./modals/PopOver";
 import Image from "next/image";
 import styles from "@/styles/shared.module.css";
+import { CommonFolderInfoProps } from "@/constants/commonTypes";
 
 interface FolderItemProps {
-  item: {
-    imageSource?: string;
-    image_source?: string;
-    createdAt?: Date | null;
-    created_at?: Date | null;
-    description: string;
-    url: string;
-    id: string;
-    favorite: boolean;
-  };
+  item: CommonFolderInfoProps;
   $isModalVisible: string;
   setIsModalVisible: any;
 }
@@ -28,7 +20,6 @@ function FolderItem({
   $isModalVisible,
   setIsModalVisible,
 }: FolderItemProps) {
-  const [isHovering, setIsHovering] = useState(false);
   const { imageSource, createdAt, description, url, id } = item;
   const { created_at, favorite, image_source } = item;
   const [isPopOverVisible, setIsPopOverVisible] = useState(false);
@@ -43,18 +34,9 @@ function FolderItem({
     time = CalcTime(createdAt);
     img_src = imageSource ?? "";
   }
-
-  const handleMouseOver = () => {
-    setIsHovering(true);
-  };
-
-  const handleMouseOut = () => {
-    setIsHovering(false);
-  };
-
   return (
     <a href={url} target="_blank" rel="noreferrer">
-      <Folder onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+      <Folder>
         <ImageContainer>
           {img_src ? (
             <Image fill src={img_src} alt="이미지" id="folderImage"></Image>
