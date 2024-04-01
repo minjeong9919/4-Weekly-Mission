@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import { COLORS } from "../../../constants/colors";
 import closeIcon from "@/assets/icons/closeModal.png";
 import Image from "next/image";
 import { BlueButton } from "../BlueButton";
@@ -10,7 +9,7 @@ export const EditNameModal = ({
   setIsModalVisible,
 }: CommonModalProps) => {
   const handleCloseBtn = () => {
-    setIsModalVisible(null);
+    setIsModalVisible("");
   };
 
   return (
@@ -61,7 +60,7 @@ const Modal = styled.div`
   align-items: center;
   gap: 24px;
   border-radius: 15px;
-  background: ${COLORS.White};
+  background: var(--White);
   transition: visibility 0.3s ease;
 `;
 
@@ -89,8 +88,8 @@ const Input = styled.input`
   width: 280px;
   padding: 18px 15px;
   border-radius: 8px;
-  border: 1px solid ${COLORS.Primary};
-  background: ${COLORS.White};
+  border: 1px solid var(--Primary);
+  background: var(--White);
   color: var(--Linkbrary-gray100, #373740);
   font-family: Pretendard;
   font-size: 16px;
@@ -100,6 +99,6 @@ const Input = styled.input`
   margin-bottom: 10px;
 
   &:focus {
-    border: 1px solid ${COLORS.Primary};
+    border: 1px solid var(--Primary);
   }
 `;

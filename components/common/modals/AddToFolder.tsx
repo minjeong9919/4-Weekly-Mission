@@ -1,5 +1,4 @@
-import { styled } from "styled-components";
-import { COLORS } from "../../../constants/colors";
+import styled from "styled-components";
 import closeIcon from "@/assets/icons/closeModal.png";
 import { BlueButton } from "../BlueButton";
 import Image from "next/image";
@@ -10,7 +9,7 @@ export const AddToFolder = ({
   setIsModalVisible,
 }: CommonModalProps) => {
   const handleCloseBtn = () => {
-    setIsModalVisible(null);
+    setIsModalVisible("");
   };
 
   return (
@@ -90,7 +89,7 @@ const Modal = styled.div`
   align-items: center;
   gap: 24px;
   border-radius: 15px;
-  background: ${COLORS.White};
+  background: var(--White);
   transition: visibility 0.3s ease;
 `;
 
@@ -119,7 +118,7 @@ const Title = styled.div`
   }
 
   & > p {
-    color: ${COLORS.Grey_400};
+    color: var(--Grey_400);
     font-size: 14px;
     font-weight: 400;
     line-height: 22px; /* 157.143% */
@@ -148,12 +147,12 @@ const Folder = styled.div`
 
   &:hover {
     cursor: pointer;
-    background: ${COLORS.Grey_100};
-    color: ${COLORS.Primary};
+    background: var(Grey_100);
+    color: var(--Primary);
   }
 
   & > p {
-    color: ${COLORS.Grey_400};
+    color: var(--Grey_400);
     font-family: Pretendard;
     font-size: 14px;
     font-style: normal;

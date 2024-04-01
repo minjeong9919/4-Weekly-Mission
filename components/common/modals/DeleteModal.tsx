@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { COLORS } from "../../../constants/colors";
 import closeIcon from "@/assets/icons/closeModal.png";
 import Image from "next/image";
 import { RedButton } from "../../../components/common/RedButton";
@@ -10,7 +9,7 @@ export const DeleteModal = ({
   setIsModalVisible,
 }: CommonModalProps) => {
   const handleCloseBtn = () => {
-    setIsModalVisible(null);
+    setIsModalVisible("");
   };
 
   return (
@@ -67,7 +66,7 @@ const Modal = styled.div`
   align-items: center;
   gap: 24px;
   border-radius: 15px;
-  background: ${COLORS.White};
+  background: var(--White);
   transition: visibility 0.3s ease;
 `;
 
@@ -94,7 +93,7 @@ const Title = styled.div`
   }
 
   & > p {
-    color: ${COLORS.Grey_400};
+    color: var(--Grey_400);
     text-align: center;
     font-family: Pretendard;
     font-size: 14px;

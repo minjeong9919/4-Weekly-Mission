@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { COLORS } from "../../../constants/colors";
 import { BlueButton } from "../BlueButton";
 import closeIcon from "@/assets/icons/closeModal.png";
 import Image from "next/image";
@@ -60,7 +59,7 @@ const Modal = styled.div`
   align-items: center;
   gap: 24px;
   border-radius: 15px;
-  background-color: ${COLORS.White};
+  background-color: var(--White);
   transition: visibility 0.3s ease;
 `;
 
@@ -88,8 +87,8 @@ const Input = styled.input`
   width: 280px;
   padding: 18px 15px;
   border-radius: 8px;
-  border: 1px solid ${COLORS.Grey_300};
-  background: ${COLORS.White};
+  border: 1px solid var(--Grey_300);
+  background: var(--White);
   color: var(--Linkbrary-gray100, #373740);
   font-family: Pretendard;
   font-size: 16px;
@@ -99,6 +98,6 @@ const Input = styled.input`
   margin-bottom: 10px;
 
   &:focus {
-    border: 1px solid ${COLORS.Primary};
+    border: 1px solid var(--Primary);
   }
 `;
