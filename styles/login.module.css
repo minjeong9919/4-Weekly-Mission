@@ -1,0 +1,124 @@
+/* body,
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: auto 0px;
+} */
+
+.fullFrame {
+  width: 400px;
+}
+
+#email,
+#password {
+  margin-bottom: 24px;
+}
+
+#password-input-div,
+#password-input-div2 {
+  position: relative;
+}
+
+.PwdEyeIcon,
+.PwdEyeIcon2 {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 19px;
+  right: 16px;
+  cursor: pointer;
+}
+
+.errorMsg {
+  font-size: 14px;
+  font-style: normal;
+  color: var(--Red);
+  font-weight: 400;
+  margin-top: 6px;
+}
+
+/* section {
+  margin: 30px 0px;
+}
+
+section p {
+  margin: 0px 0px 12px 0px;
+  font-size: 14px;
+  font-weight: 400;
+} */
+
+/* 아이디와 비밀번호 input 스타일 지정 */
+/* 
+[status="steady"] {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--Grey_300);
+  padding: 18px 15px;
+}
+
+[status="steady"]:focus {
+  border: 1px solid var(--Primary);
+  outline: none;
+}
+
+[status="error"] {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--Grey_300);
+  padding: 18px 15px;
+  border: 1px solid var(--Red);
+  outline: none;
+} */
+
+.loginBtn {
+  width: 100%;
+  background: linear-gradient(91deg, var(--Primary) 0.12%, #6ae3fe 101.84%);
+  padding: 16px 20px;
+  border-radius: 8px;
+  border: 0px;
+  margin-bottom: 30px;
+  cursor: pointer;
+
+  color: #f5f5f5;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.icon-google,
+.icon-kakao {
+  width: 42px;
+  height: 42px;
+  margin-left: 16px;
+  padding: 10px;
+  position: relative;
+}
+
+.icon-google {
+  background-image: url("../assets/icons/icon_box.png");
+}
+
+.icon-kakao {
+  background-image: url("../assets/icons/icon_box_y.png");
+}
+
+#icon {
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+@media (max-width: 767px) {
+  /* body {
+    padding: 0px 32px;
+    margin-bottom: 0px;
+  } */
+
+  .fullFrame {
+    width: 100%;
+    max-width: 400px;
+  }
+}

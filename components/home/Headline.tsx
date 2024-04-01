@@ -19,7 +19,6 @@ export const Headline = () => {
         padding="10px 20px"
         fontSize="18px"
         radius="8px"
-        onBtnHandle={() => {}}
       />
     </Container>
   );
