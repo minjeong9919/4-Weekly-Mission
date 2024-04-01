@@ -113,11 +113,11 @@ const Folder = () => {
         setIsModalVisible={setIsModalVisible}
       />
       <DeleteModal
-        $isModalVisible={isModalVisible}
+        isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
       />
       <AddFolderModal
-        $isModalVisible={isModalVisible}
+        isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
       />
       <HeaderElement $positionval="static" />

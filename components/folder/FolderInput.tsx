@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import styled from "styled-components";
 import Link from "@/assets/icons/link.svg";
 import { BlueButton } from "../common/BlueButton";
 import { forwardRef, SetStateAction, Dispatch } from "react";
@@ -14,7 +14,7 @@ const FolderInput = forwardRef<HTMLDivElement, PropsType>(
       setIsVisible("폴더 추가");
     };
     return (
-      <BackGround ref={ref} $isAddLinkVisible={$isAddLinkVisible}>
+      <BackGround ref={ref}>
         {!$isAddLinkVisible ? (
           <BackGroundFixed>
             <InputBoxFixed>
@@ -29,11 +29,11 @@ const FolderInput = forwardRef<HTMLDivElement, PropsType>(
                 fontSize=""
                 radius="8px"
                 onBtnHandle={() => onAddLinkButtonClick}
-              ></BlueButton>
+              />
             </InputBoxFixed>
           </BackGroundFixed>
         ) : (
-          <InputBox $isAddLinkVisible={$isAddLinkVisible}>
+          <InputBox>
             <Link />
             <Input placeholder="링크를 추가해 보세요." />
             <BlueButton
@@ -45,7 +45,7 @@ const FolderInput = forwardRef<HTMLDivElement, PropsType>(
               fontSize=""
               radius="8px"
               onBtnHandle={() => onAddLinkButtonClick}
-            ></BlueButton>
+            />
           </InputBox>
         )}
       </BackGround>
@@ -73,7 +73,7 @@ const BackGroundFixed = styled.div`
   z-index: 99;
 `;
 
-const InputBox = styled.div<{ margin: string }>`
+const InputBox = styled.div<{ margin?: string }>`
   width: 800px;
   padding: 16px 20px;
   border-radius: 15px;
