@@ -5,21 +5,12 @@ import Image from "next/image";
 import kakao from "../../../assets/icons/icon_kakao.png";
 import facebook from "../../../assets/icons/icon_facebook.png";
 import link from "../../../assets/icons/link.png";
-
-interface PropsType {
-  $isVisible?: string;
-  $backgroundColor?: string;
-}
-
-type SharedModalPropsType = {
-  isModalVisible: string;
-  setIsModalVisible: any;
-};
+import { CommonModalProps } from "@/constants/commonTypes";
 
 export const SharedModal = ({
   isModalVisible,
   setIsModalVisible,
-}: SharedModalPropsType) => {
+}: CommonModalProps) => {
   const ICONS = [
     {
       name: "카카오톡",
@@ -66,7 +57,12 @@ export const SharedModal = ({
   );
 };
 
-const Background = styled.div<PropsType>`
+type BackgroundPropsType = {
+  $isVisible?: string;
+  $backgroundColor?: string;
+};
+
+const Background = styled.div<BackgroundPropsType>`
   display: ${({ $isVisible }) => ($isVisible === "공유" ? "block" : "none")};
   z-index: 9999;
   position: fixed;
@@ -153,7 +149,7 @@ const Icon = styled.div`
   }
 `;
 
-const IconImg = styled.div<PropsType>`
+const IconImg = styled.div<BackgroundPropsType>`
   width: 42px;
   height: 42px;
   background-color: ${({ $backgroundColor }) => $backgroundColor ?? null};

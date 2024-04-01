@@ -3,25 +3,18 @@ import { COLORS } from "../../../constants/colors";
 import { BlueButton } from "../BlueButton";
 import closeIcon from "@/assets/icons/closeModal.png";
 import Image from "next/image";
+import { CommonModalProps } from "@/constants/commonTypes";
 
-export interface ModalPropsType {
-  $isVisible: string;
-}
-
-interface AddFolderProps {
-  $isModalVisible: string;
-  setIsModalVisible: any;
-}
 export const AddFolderModal = ({
-  $isModalVisible,
+  isModalVisible,
   setIsModalVisible,
-}: AddFolderProps) => {
+}: CommonModalProps) => {
   const handleCloseBtn = () => {
     setIsModalVisible(null);
   };
 
   return (
-    <Background $isVisible={$isModalVisible}>
+    <Background $isVisible={isModalVisible}>
       <Modal>
         <Close onClick={() => handleCloseBtn()}>
           <Image src={closeIcon} alt="닫기 아이콘" />
@@ -42,7 +35,7 @@ export const AddFolderModal = ({
   );
 };
 
-const Background = styled.div<ModalPropsType>`
+const Background = styled.div<{ $isVisible: string }>`
   display: ${({ $isVisible }) =>
     $isVisible === "폴더 추가" ? "block" : "none"};
   z-index: 9999;

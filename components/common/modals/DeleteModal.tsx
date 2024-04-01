@@ -3,18 +3,18 @@ import { COLORS } from "../../../constants/colors";
 import closeIcon from "@/assets/icons/closeModal.png";
 import Image from "next/image";
 import { RedButton } from "../../../components/common/RedButton";
+import { CommonModalProps } from "@/constants/commonTypes";
 
-interface propsType {
-  $isVisible: string;
-}
-
-export const DeleteModal = ({ $isModalVisible, setIsModalVisible }) => {
+export const DeleteModal = ({
+  isModalVisible,
+  setIsModalVisible,
+}: CommonModalProps) => {
   const handleCloseBtn = () => {
     setIsModalVisible(null);
   };
 
   return (
-    <Background $isVisible={$isModalVisible}>
+    <Background $isVisible={isModalVisible}>
       <Modal>
         <Close
           onClick={(e) => {
@@ -42,7 +42,7 @@ export const DeleteModal = ({ $isModalVisible, setIsModalVisible }) => {
   );
 };
 
-const Background = styled.div<propsType>`
+const Background = styled.div<{ $isVisible: string }>`
   display: ${({ $isVisible }) => ($isVisible === "삭제" ? "block" : "none")};
   z-index: 9999;
   position: fixed;

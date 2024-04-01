@@ -3,20 +3,12 @@ import { COLORS } from "../../../constants/colors";
 import closeIcon from "@/assets/icons/closeModal.png";
 import Image from "next/image";
 import { BlueButton } from "../BlueButton";
-
-interface PropsType {
-  $isVisible: string;
-}
-
-type EditNameModalPropsType = {
-  isModalVisible: string;
-  setIsModalVisible: any;
-};
+import { CommonModalProps } from "@/constants/commonTypes";
 
 export const EditNameModal = ({
   isModalVisible,
   setIsModalVisible,
-}: EditNameModalPropsType) => {
+}: CommonModalProps) => {
   const handleCloseBtn = () => {
     setIsModalVisible(null);
   };
@@ -43,7 +35,7 @@ export const EditNameModal = ({
   );
 };
 
-const Background = styled.div<PropsType>`
+const Background = styled.div<{ $isVisible: string }>`
   display: ${({ $isVisible }) =>
     $isVisible === "이름 변경" ? "block" : "none"};
   z-index: 9999;
