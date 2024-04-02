@@ -24,16 +24,9 @@ function FolderItem({
   const { created_at, favorite, image_source } = item;
   const [isPopOverVisible, setIsPopOverVisible] = useState(false);
 
-  let time = "";
-  let img_src: string;
+  const time = CalcTime(created_at || createdAt);
+  const img_src = image_source || imageSource;
 
-  if (created_at) {
-    time = CalcTime(created_at);
-    img_src = image_source ?? "";
-  } else {
-    time = CalcTime(createdAt);
-    img_src = imageSource ?? "";
-  }
   return (
     <a href={url} target="_blank" rel="noreferrer">
       <Folder>
