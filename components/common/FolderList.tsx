@@ -24,7 +24,7 @@ function FolderList({
                 key={item.id}
                 $isModalVisible={$isModalVisible}
                 setIsModalVisible={setIsModalVisible}
-              ></FolderItem>
+              />
             );
           }
         })}

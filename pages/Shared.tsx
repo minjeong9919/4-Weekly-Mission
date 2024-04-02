@@ -27,7 +27,7 @@ function Shared() {
         setIsModalVisible={setIsModalVisible}
       />
       <HeaderElement $positionval="" />
-      <SharedSection></SharedSection>
+      <SharedSection />
       <Input
         inputValue={searchInputValue}
         setInputValue={setSearchInputValue}
@@ -37,8 +37,8 @@ function Shared() {
         items={folders}
         $isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
-      ></FolderList>
-      <FooterElement></FooterElement>
+      />
+      <FooterElement />
     </>
   );
 }

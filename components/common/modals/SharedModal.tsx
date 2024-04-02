@@ -28,7 +28,7 @@ export const SharedModal = ({
   ];
 
   const handleCloseBtn = () => {
-    setIsModalVisible(null);
+    setIsModalVisible("");
   };
 
   return (

@@ -27,14 +27,14 @@ function HeaderElement({ $positionval }: propTypes) {
                   height={28}
                   src={profileImageSource}
                   alt="myProfile-img"
-                ></Image>
+                />
               ) : (
                 <Image
                   width={18}
                   height={18}
                   src={profile}
                   alt="myProfile-img"
-                ></Image>
+                />
               )}
             </MyProfileImageContainerDiv>
             <span id="myEmail">{email}</span>

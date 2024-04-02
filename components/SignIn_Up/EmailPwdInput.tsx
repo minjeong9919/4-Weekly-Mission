@@ -15,7 +15,7 @@ const EmailPwdInput = ({ title, type, isEyeIcon }: EmailPwdInputPropsType) => {
       <EmailPasswordInput type={type} />
       {isEyeIcon && (
         <EyeIconDiv>
-          <Image src={eyeoff} alt="eye_off_icon"></Image>
+          <Image src={eyeoff} alt="eye_off_icon" />
         </EyeIconDiv>
       )}
     </InputDiv>

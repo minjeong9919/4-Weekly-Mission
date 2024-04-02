@@ -28,7 +28,7 @@ export const EditNameModal = ({
           padding="16px 20px"
           fontSize="16px"
           radius="8px"
-        ></BlueButton>
+        />
       </Modal>
     </Background>
   );

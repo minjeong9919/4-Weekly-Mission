@@ -21,10 +21,7 @@ const SharedSection = () => {
 
   return (
     <section className="codeit-mark-section">
-      <OwnerProfile
-        src={profileImageSource || smileIcon}
-        alt={"smile icon"}
-      ></OwnerProfile>
+      <OwnerProfile src={profileImageSource || smileIcon} alt={"smile icon"} />
       <span>{name}</span>
       <div id="favorites">
         <h1>{folderName}</h1>

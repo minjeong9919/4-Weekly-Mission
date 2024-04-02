@@ -19,7 +19,7 @@ const FolderInput = forwardRef<HTMLDivElement, PropsType>(
           <BackGroundFixed>
             <InputBoxFixed>
               <Link />
-              <Input placeholder="링크를 추가해 보세요."></Input>
+              <Input placeholder="링크를 추가해 보세요." />
               <BlueButton
                 width="80px"
                 height="auto"

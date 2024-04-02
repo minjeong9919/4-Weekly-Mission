@@ -34,16 +34,18 @@ const Folder = () => {
   const [isModalVisible, setIsModalVisible] = useState("");
   const [searchInputValue, setSearchInputValue] = useState("");
 
-  const fetchData = async () => {
-    try {
-      const response = await getAllLinkData(listId);
-      const result = await response.data;
-      setData(result);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  fetchData();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getAllLinkData(listId);
+        const result = await response.data;
+        setData(result);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  });
 
   const addLinkDivRef = useRef(null);
   const footerDivRef = useRef(null);
@@ -137,7 +139,7 @@ const Folder = () => {
           items={data}
           $isModalVisible={isModalVisible}
           setIsModalVisible={setIsModalVisible}
-        ></FolderList>
+        />
       ) : (
         <NoLinkMsg>저장된 링크가 없습니다.</NoLinkMsg>
       )}

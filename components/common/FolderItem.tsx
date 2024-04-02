@@ -32,7 +32,7 @@ function FolderItem({
       <Folder>
         <ImageContainer>
           {img_src ? (
-            <Image fill src={img_src} alt="이미지" id="folderImage"></Image>
+            <Image fill src={img_src} alt="이미지" id="folderImage" />
           ) : (
             <DefaultImage>
               <Image src={logo} alt="logo" id="defaultImage" />
@@ -48,7 +48,7 @@ function FolderItem({
                 e.preventDefault();
                 setIsPopOverVisible(!isPopOverVisible);
               }}
-            ></Kebab>
+            />
             <PopOver
               $isPopOverVisible={isPopOverVisible}
               setIsPopOverVisible={setIsPopOverVisible}
@@ -58,7 +58,7 @@ function FolderItem({
               $right="0px"
               $isModalVisible={$isModalVisible}
               setIsModalVisible={setIsModalVisible}
-            ></PopOver>
+            />
           </TimeContainer>
           <Description>{description}</Description>
 
