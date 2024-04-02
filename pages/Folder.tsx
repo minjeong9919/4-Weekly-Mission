@@ -45,7 +45,7 @@ const Folder = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [listId]);
 
   const addLinkDivRef = useRef(null);
   const footerDivRef = useRef(null);

@@ -17,19 +17,14 @@ const Menus = ({ changeTitle, changeID, setIsVisible }: MenusPropsType) => {
   const menulists = fetchedMenuData?.data ?? [];
 
   useEffect(() => {
-    addEntireMenu();
-
     const initialButtonColors = setAllWhiteButtonColor();
     setButtonColors(initialButtonColors);
-  }, []);
+  }, [menulists]);
 
-  const addEntireMenu = () => {
+  const setAllWhiteButtonColor = () => {
     if (menulists[0] && menulists[0].name !== "전체") {
       menulists.unshift({ id: 0, name: "전체" });
     }
-  };
-
-  const setAllWhiteButtonColor = () => {
     const initialButtonColors = menulists.reduce((colors: any, list: any) => {
       colors[list.name] = COLORS.White;
       return colors;
