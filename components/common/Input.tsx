@@ -88,6 +88,10 @@ const DeleteAllButton = styled.button`
   align-items: center;
   color: white;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   @media (max-width: 767px) {
     width: 29px;
     height: 25px;
