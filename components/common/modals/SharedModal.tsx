@@ -10,23 +10,6 @@ export const SharedModal = ({
   isModalVisible,
   setIsModalVisible,
 }: CommonModalProps) => {
-  const ICONS = [
-    {
-      name: "카카오톡",
-      backgroundColor: "#F5E14B",
-      imgUrl: kakao,
-    },
-    {
-      name: "페이스북",
-      backgroundColor: "#1877F2",
-      imgUrl: facebook,
-    },
-    {
-      name: "링크 복사",
-      imgUrl: link,
-    },
-  ];
-
   const handleCloseBtn = () => {
     setIsModalVisible("");
   };
@@ -55,6 +38,23 @@ export const SharedModal = ({
     </Background>
   );
 };
+
+const ICONS = [
+  {
+    name: "카카오톡",
+    backgroundColor: "#F5E14B",
+    imgUrl: kakao,
+  },
+  {
+    name: "페이스북",
+    backgroundColor: "#1877F2",
+    imgUrl: facebook,
+  },
+  {
+    name: "링크 복사",
+    imgUrl: link,
+  },
+];
 
 type BackgroundPropsType = {
   $isVisible?: string;
