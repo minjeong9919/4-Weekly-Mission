@@ -9,6 +9,21 @@ type FolderTitlePropsType = {
 };
 
 const FolderTitle = ({ titleName, setIsModal }: FolderTitlePropsType) => {
+  const titles = [
+    {
+      name: "공유",
+      svg: <Share />,
+    },
+    {
+      name: "이름 변경",
+      svg: <Pen />,
+    },
+    {
+      name: "삭제",
+      svg: <Trash />,
+    },
+  ];
+
   return (
     <Container>
       <Title>{titleName}</Title>
@@ -30,21 +45,6 @@ const FolderTitle = ({ titleName, setIsModal }: FolderTitlePropsType) => {
     </Container>
   );
 };
-
-const titles = [
-  {
-    name: "공유",
-    svg: <Share />,
-  },
-  {
-    name: "이름 변경",
-    svg: <Pen />,
-  },
-  {
-    name: "삭제",
-    svg: <Trash />,
-  },
-];
 
 const Container = styled.div`
   width: 1060px;
