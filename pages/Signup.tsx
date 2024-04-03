@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,9 +6,13 @@ import login_logo from "@/assets/login_logo.png";
 import icon_google from "@/assets/icons/icon_google.png";
 import icon_kakao from "@/assets/icons/icon_kakao.png";
 import { BlueButton } from "@/components/common/BlueButton";
-import EmailPwdInput from "@/components/SignIn_Up/EmailPwdInput";
+import EmailPwdInput from "@/components/SignInUp/EmailPwdInput";
 
 export default function Signup() {
+  const [emailValue, setEmailValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
+  const [password2Value, setPassword2Value] = useState("");
+
   return (
     <BackgroundDiv>
       <ContainerDiv>
@@ -24,11 +28,24 @@ export default function Signup() {
           </p>
         </TitleDiv>
         <InputBoxDiv>
-          <EmailPwdInput title="이메일" type="email" />
-          <EmailPwdInput title="비밀번호" type="password" isEyeIcon={true} />
+          <EmailPwdInput
+            title="이메일"
+            type="email"
+            setEmailValue={setEmailValue}
+            emailValue={emailValue}
+          />
+          <EmailPwdInput
+            title="비밀번호"
+            type="password"
+            isEyeIcon={true}
+            setPasswordValue={setPasswordValue}
+            passwordValue={passwordValue}
+          />
           <EmailPwdInput
             title="비밀번호 확인"
-            type="password"
+            type="password2"
+            setPassword2Value={setPassword2Value}
+            password2Value={password2Value}
             isEyeIcon={true}
           />
         </InputBoxDiv>

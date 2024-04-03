@@ -6,7 +6,7 @@ import login_logo from "@/assets/login_logo.png";
 import icon_google from "@/assets/icons/icon_google.png";
 import icon_kakao from "@/assets/icons/icon_kakao.png";
 import { BlueButton } from "@/components/common/BlueButton";
-import EmailPwdInput from "@/components/SignIn_Up/EmailPwdInput";
+import EmailPwdInput from "@/components/SignInUp/EmailPwdInput";
 
 export default function LogIn() {
   return (
