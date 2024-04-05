@@ -32,11 +32,15 @@ export default function Signup() {
             type="email"
             setEmailValue={setEmailValue}
             emailValue={emailValue}
+            setPasswordValue={setPasswordValue}
+            passwordValue={passwordValue}
           />
           <EmailPwdInput
             title="비밀번호"
             type="password"
             isEyeIcon={true}
+            setEmailValue={setEmailValue}
+            emailValue={emailValue}
             setPasswordValue={setPasswordValue}
             passwordValue={passwordValue}
           />
@@ -44,6 +48,10 @@ export default function Signup() {
             title="비밀번호 확인"
             type="password2"
             isEyeIcon={true}
+            setEmailValue={setEmailValue}
+            emailValue={emailValue}
+            setPasswordValue={setPasswordValue}
+            passwordValue={passwordValue}
           />
         </InputBoxDiv>
         <BlueButton

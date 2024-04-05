@@ -1,8 +1,8 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent, KeyboardEvent } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import eyeoff from "@/assets/icons/eye-off.png";
-import { changeInputBorderColor } from "@/utils/commonSigninupFunc";
+import { changeInputBorderColor, EnterLogin } from "@/utils/commonSigninupFunc";
 import {
   emailInputValidationcheck,
   passwordInputValidationcheck,
@@ -16,6 +16,7 @@ type EmailPwdInputPropsType = {
   emailValue?: string | "";
   setPasswordValue?: React.Dispatch<React.SetStateAction<string | undefined>>;
   passwordValue?: string | undefined;
+  onEnterButtonClick: () => void;
 };
 
 const EmailPwdInput = ({
@@ -26,11 +27,19 @@ const EmailPwdInput = ({
   emailValue,
   setPasswordValue,
   passwordValue,
+  onEnterButtonClick,
 }: EmailPwdInputPropsType) => {
   const [inputStatus, setInputStatus] = useState("default");
   const [inputErrorMessage, setInputErrorMessage] = useState("");
 
-  const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {};
+  const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    if (type === "email") {
+      setEmailValue?.(inputValue);
+    } else if (type === "password") {
+      setPasswordValue?.(inputValue);
+    }
+  };
 
   const onInputFocusOutHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -38,18 +47,16 @@ const EmailPwdInput = ({
     if (type === "email") {
       const emailInputStatus = emailInputValidationcheck(inputValue);
       setInputStatusAndErrorMessage(emailInputStatus);
-      setEmailValue?.(inputValue);
     } else if (type === "password") {
       const passwordInputStatus = passwordInputValidationcheck(inputValue);
       setInputStatusAndErrorMessage(passwordInputStatus);
-      setPasswordValue?.(inputValue);
     } else if (type === "password2") {
+      console.log(passwordValue);
       const passwordInputStatus = passwordInputValidationcheck(
         passwordValue,
         inputValue
       );
       setInputStatusAndErrorMessage(passwordInputStatus);
-      setPasswordValue?.(inputValue);
     }
   };
 
@@ -69,6 +76,9 @@ const EmailPwdInput = ({
       <EmailPasswordInput
         type={type}
         status={inputStatus}
+        onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
+          EnterLogin(e.key, onEnterButtonClick);
+        }}
         onChange={onInputChangeHandler}
         onBlur={onInputFocusOutHandler}
         onFocus={onInputFocusHandler}

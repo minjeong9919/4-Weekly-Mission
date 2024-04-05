@@ -21,7 +21,7 @@ export const BlueButton = ({
       color={COLORS.White}
       fontSize={fontSize}
       radius={radius}
-      onClick={() => onBtnHandle?.()}
+      onClick={onBtnHandle}
     >
       {text}
     </Button>

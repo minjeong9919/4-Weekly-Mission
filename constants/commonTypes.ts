@@ -22,5 +22,5 @@ export interface CommonButtonCustomProps {
   padding?: string;
   fontSize?: string;
   radius?: string;
-  onBtnHandle?: () => {};
+  onBtnHandle?: () => void;
 }

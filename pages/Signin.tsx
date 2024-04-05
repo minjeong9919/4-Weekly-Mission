@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,8 +7,18 @@ import icon_google from "@/assets/icons/icon_google.png";
 import icon_kakao from "@/assets/icons/icon_kakao.png";
 import { BlueButton } from "@/components/common/BlueButton";
 import EmailPwdInput from "@/components/SignInUp/EmailPwdInput";
+import { postSignIn } from "@/api/api";
 
 export default function LogIn() {
+  const [emailValue, setEmailValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState<string | undefined>("");
+
+  const tryLogin = () => {
+    const postJsonValue = { email: emailValue, password: passwordValue };
+    console.log(postJsonValue);
+    postSignIn(postJsonValue);
+  };
+
   return (
     <BackgroundDiv>
       <ContainerDiv>
@@ -24,8 +34,25 @@ export default function LogIn() {
           </p>
         </TitleDiv>
         <InputBoxDiv>
-          <EmailPwdInput title="이메일" type="email" />
-          <EmailPwdInput title="비밀번호" type="password" isEyeIcon={true} />
+          <EmailPwdInput
+            title="이메일"
+            type="email"
+            setEmailValue={setEmailValue}
+            emailValue={emailValue}
+            setPasswordValue={setPasswordValue}
+            passwordValue={passwordValue}
+            onEnterButtonClick={tryLogin}
+          />
+          <EmailPwdInput
+            title="비밀번호"
+            type="password"
+            isEyeIcon={true}
+            setEmailValue={setEmailValue}
+            emailValue={emailValue}
+            setPasswordValue={setPasswordValue}
+            passwordValue={passwordValue}
+            onEnterButtonClick={tryLogin}
+          />
         </InputBoxDiv>
         <BlueButton
           text="로그인"
@@ -34,6 +61,7 @@ export default function LogIn() {
           padding="16px 20px"
           radius="8px"
           fontSize="18px"
+          onBtnHandle={tryLogin}
         />
         <SocialLoginDiv>
           <span>소셜 로그인</span>
