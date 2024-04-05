@@ -10,8 +10,7 @@ import EmailPwdInput from "@/components/SignInUp/EmailPwdInput";
 
 export default function Signup() {
   const [emailValue, setEmailValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
-  const [password2Value, setPassword2Value] = useState("");
+  const [passwordValue, setPasswordValue] = useState<string | undefined>("");
 
   return (
     <BackgroundDiv>
@@ -44,8 +43,6 @@ export default function Signup() {
           <EmailPwdInput
             title="비밀번호 확인"
             type="password2"
-            setPassword2Value={setPassword2Value}
-            password2Value={password2Value}
             isEyeIcon={true}
           />
         </InputBoxDiv>

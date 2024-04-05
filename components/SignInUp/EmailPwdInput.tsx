@@ -3,9 +3,10 @@ import styled from "styled-components";
 import Image from "next/image";
 import eyeoff from "@/assets/icons/eye-off.png";
 import { changeInputBorderColor } from "@/utils/commonSigninupFunc";
-import { emailCheck, passwordCheck } from "@/utils/validation";
-import { ERROR_MESSAGE } from "@/constants/errorMessage";
-import INPUT_STATUS from "@/constants/inputStatus";
+import {
+  emailInputValidationcheck,
+  passwordInputValidationcheck,
+} from "@/utils/validation";
 
 type EmailPwdInputPropsType = {
   title: string;
@@ -13,10 +14,8 @@ type EmailPwdInputPropsType = {
   isEyeIcon?: boolean;
   setEmailValue?: React.Dispatch<React.SetStateAction<string>>;
   emailValue?: string | "";
-  setPasswordValue?: React.Dispatch<React.SetStateAction<string>>;
-  passwordValue?: string | "";
-  setPassword2Value?: React.Dispatch<React.SetStateAction<string>>;
-  password2Value?: string | "";
+  setPasswordValue?: React.Dispatch<React.SetStateAction<string | undefined>>;
+  passwordValue?: string | undefined;
 };
 
 const EmailPwdInput = ({
@@ -27,8 +26,6 @@ const EmailPwdInput = ({
   emailValue,
   setPasswordValue,
   passwordValue,
-  setPassword2Value,
-  password2Value,
 }: EmailPwdInputPropsType) => {
   const [inputStatus, setInputStatus] = useState("default");
   const [inputErrorMessage, setInputErrorMessage] = useState("");
@@ -39,43 +36,21 @@ const EmailPwdInput = ({
     const inputValue = e.target.value;
 
     if (type === "email") {
-      const emailInputStatus = emailInputcheck(inputValue);
+      const emailInputStatus = emailInputValidationcheck(inputValue);
       setInputStatusAndErrorMessage(emailInputStatus);
+      setEmailValue?.(inputValue);
     } else if (type === "password") {
-      const passwordInputStatus = passwordInputcheck(inputValue);
+      const passwordInputStatus = passwordInputValidationcheck(inputValue);
       setInputStatusAndErrorMessage(passwordInputStatus);
+      setPasswordValue?.(inputValue);
     } else if (type === "password2") {
-      console.log(passwordValue);
+      const passwordInputStatus = passwordInputValidationcheck(
+        passwordValue,
+        inputValue
+      );
+      setInputStatusAndErrorMessage(passwordInputStatus);
+      setPasswordValue?.(inputValue);
     }
-  };
-
-  const emailInputcheck = (email: string): ErrorType => {
-    let status: ErrorType;
-    if (!email) {
-      status = INPUT_STATUS.noEmail;
-    } else if (!emailCheck(email)) {
-      status = INPUT_STATUS.wrongEmail;
-    } else {
-      status = "normal";
-    }
-    setEmailValue?.(email);
-    return status;
-  };
-
-  const passwordInputcheck = (
-    password: string,
-    password2?: string
-  ): ErrorType => {
-    let status: ErrorType;
-    if (!password) {
-      status = INPUT_STATUS.noPassword;
-    } else if (password2 && password !== password2) {
-      status = INPUT_STATUS.noMatchPassword;
-    } else {
-      status = "normal";
-    }
-    setPasswordValue?.(password);
-    return status;
   };
 
   const setInputStatusAndErrorMessage = (status: "normal" | ErrorType) => {
