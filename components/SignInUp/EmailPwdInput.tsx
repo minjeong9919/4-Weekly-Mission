@@ -79,27 +79,11 @@ const EmailPwdInput = ({
         emailInputFocusOutHandler(inputValue);
         break;
       case "password": {
-        let passwordInputStatus;
-        if (loginStatus) {
-          passwordInputStatus = loginPasswordInputValidationcheck(inputValue);
-        } else {
-          passwordInputStatus = signInPasswordInputValidationcheck(inputValue);
-        }
-        setInputStatusAndErrorMessage(passwordInputStatus);
-        passwordInputStatus === "valid"
-          ? setIsPasswordValid?.(true)
-          : setIsPasswordValid?.(false);
+        passwordInputFocusOutHandler(inputValue);
         break;
       }
       case "password2":
-        const passwordInputStatus = signInPasswordInputValidationcheck(
-          passwordValue,
-          inputValue
-        );
-        setInputStatusAndErrorMessage(passwordInputStatus);
-        passwordInputStatus === "valid"
-          ? setIsPasswordConfirmValid?.(true)
-          : setIsPasswordConfirmValid?.(false);
+        passwordConfirmInputFocusOutHandler(inputValue);
         break;
       default:
         null;
@@ -119,6 +103,30 @@ const EmailPwdInput = ({
     } else {
       setIsEmailValid?.(false);
     }
+  };
+
+  const passwordInputFocusOutHandler = async (password: string) => {
+    let passwordInputStatus;
+    if (loginStatus) {
+      passwordInputStatus = loginPasswordInputValidationcheck(password);
+    } else {
+      passwordInputStatus = signInPasswordInputValidationcheck(password);
+    }
+    setInputStatusAndErrorMessage(passwordInputStatus);
+    passwordInputStatus === "valid"
+      ? setIsPasswordValid?.(true)
+      : setIsPasswordValid?.(false);
+  };
+
+  const passwordConfirmInputFocusOutHandler = async (password2: string) => {
+    const passwordInputStatus = signInPasswordInputValidationcheck(
+      passwordValue,
+      password2
+    );
+    setInputStatusAndErrorMessage(passwordInputStatus);
+    passwordInputStatus === "valid"
+      ? setIsPasswordConfirmValid?.(true)
+      : setIsPasswordConfirmValid?.(false);
   };
 
   useEffect(() => {
