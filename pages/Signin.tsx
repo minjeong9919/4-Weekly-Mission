@@ -14,10 +14,13 @@ export default function Signup() {
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isPasswordConfirmValid, setIsPasswordConfirmValid] = useState(false);
+  const [signInStatus, setSignInStatus] = useState("normal");
 
   const trySignin = () => {
     if (isEmailValid && isPasswordValid && isPasswordConfirmValid) {
       console.log("회원가입 시도");
+    } else {
+      setSignInStatus("fail");
     }
   };
 
@@ -45,6 +48,7 @@ export default function Signup() {
             passwordValue={passwordValue}
             onEnterButtonClick={trySignin}
             setIsEmailValid={setIsEmailValid}
+            signInStatus={signInStatus}
           />
           <EmailPwdInput
             title="비밀번호"
@@ -56,6 +60,7 @@ export default function Signup() {
             passwordValue={passwordValue}
             onEnterButtonClick={trySignin}
             setIsPasswordValid={setIsPasswordValid}
+            signInStatus={signInStatus}
           />
           <EmailPwdInput
             title="비밀번호 확인"
@@ -67,6 +72,7 @@ export default function Signup() {
             passwordValue={passwordValue}
             onEnterButtonClick={trySignin}
             setIsPasswordConfirmValid={setIsPasswordConfirmValid}
+            signInStatus={signInStatus}
           />
         </InputBoxDiv>
         <BlueButton

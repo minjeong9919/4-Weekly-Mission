@@ -1,4 +1,5 @@
 import INPUT_STATUS from "@/constants/inputStatus";
+import { postCheckDuplicationEmail } from "@/api/api";
 
 // 이메일 유효성 검사
 function emailCheck(email_address: string) {
@@ -14,6 +15,7 @@ type ErrorType =
     }
   | "valid";
 
+// 이메일 에러 검사
 export const emailInputValidationcheck = (email: string): ErrorType => {
   let status: ErrorType;
   if (!email) {
@@ -26,6 +28,16 @@ export const emailInputValidationcheck = (email: string): ErrorType => {
   return status;
 };
 
+// 이메일 중복 검사
+export const emailDuplicationCheck = async (email: string) => {
+  const postJsonEmail = { email };
+  const checkDuplication = await postCheckDuplicationEmail(postJsonEmail);
+  if (checkDuplication.error) {
+    return true;
+  } else return false;
+};
+
+// 로그인할 때 비밀번호 에러 검사
 export const loginPasswordInputValidationcheck = (
   password: string | undefined
 ): ErrorType => {
@@ -38,6 +50,7 @@ export const loginPasswordInputValidationcheck = (
   return status;
 };
 
+// 회원가입할 때 비밀번호 에러 검사
 export const signInPasswordInputValidationcheck = (
   password: string | undefined,
   password2?: string | undefined

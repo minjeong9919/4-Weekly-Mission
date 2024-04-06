@@ -7,8 +7,11 @@ import {
   emailInputValidationcheck,
   loginPasswordInputValidationcheck,
   signInPasswordInputValidationcheck,
+  emailDuplicationCheck,
 } from "@/utils/validation";
 import { ERROR_MESSAGE } from "@/constants/errorMessage";
+import { postCheckDuplicationEmail } from "@/api/api";
+import INPUT_STATUS from "@/constants/inputStatus";
 
 type EmailPwdInputPropsType = {
   title: string;
@@ -20,6 +23,7 @@ type EmailPwdInputPropsType = {
   passwordValue?: string | undefined;
   onEnterButtonClick: () => void;
   loginStatus?: string;
+  signInStatus?: string;
   setIsEmailValid?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsPasswordValid?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsPasswordConfirmValid?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -35,6 +39,7 @@ const EmailPwdInput = ({
   passwordValue,
   onEnterButtonClick,
   loginStatus,
+  signInStatus,
   setIsEmailValid,
   setIsPasswordValid,
   setIsPasswordConfirmValid,
@@ -67,11 +72,7 @@ const EmailPwdInput = ({
 
     switch (type) {
       case "email":
-        const emailInputStatus = emailInputValidationcheck(inputValue);
-        setInputStatusAndErrorMessage(emailInputStatus);
-        emailInputStatus === "valid"
-          ? setIsEmailValid?.(true)
-          : setIsEmailValid?.(false);
+        emailInputFocusOutHandler(inputValue);
         break;
       case "password": {
         let passwordInputStatus;
@@ -98,6 +99,21 @@ const EmailPwdInput = ({
         break;
       default:
         null;
+    }
+  };
+
+  const emailInputFocusOutHandler = async (email: string) => {
+    const emailInputStatus = emailInputValidationcheck(email);
+    setInputStatusAndErrorMessage(emailInputStatus);
+    if (emailInputStatus === "valid") {
+      setIsEmailValid?.(true);
+      if (signInStatus) {
+        const isDuplicateEmail = await emailDuplicationCheck(email);
+        isDuplicateEmail &&
+          setInputStatusAndErrorMessage(INPUT_STATUS.inUseEmail);
+      }
+    } else {
+      setIsEmailValid?.(false);
     }
   };
 

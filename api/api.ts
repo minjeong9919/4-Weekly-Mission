@@ -49,7 +49,11 @@ export const getAllLinkData = async (id: string) => {
 };
 
 export const postSignIn = async (data: any) => {
-  console.log(data);
   const url = `${BASE_URL}sign-in`;
+  return fetchPOSTJson(url, data);
+};
+
+export const postCheckDuplicationEmail = async (data: any) => {
+  const url = `${BASE_URL}check-email`;
   return fetchPOSTJson(url, data);
 };
