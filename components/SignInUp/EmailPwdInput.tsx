@@ -2,10 +2,11 @@ import { useState, useEffect, ChangeEvent, KeyboardEvent } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import eyeoff from "@/assets/icons/eye-off.png";
-import { changeInputBorderColor, EnterLogin } from "@/utils/commonSigninupFunc";
+import { changeInputBorderColor } from "@/utils/commonSigninupFunc";
 import {
   emailInputValidationcheck,
-  passwordInputValidationcheck,
+  loginPasswordInputValidationcheck,
+  signInPasswordInputValidationcheck,
 } from "@/utils/validation";
 import { ERROR_MESSAGE } from "@/constants/errorMessage";
 
@@ -18,7 +19,10 @@ type EmailPwdInputPropsType = {
   setPasswordValue?: React.Dispatch<React.SetStateAction<string | undefined>>;
   passwordValue?: string | undefined;
   onEnterButtonClick: () => void;
-  loginStatus: string;
+  loginStatus?: string;
+  setIsEmailValid?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsPasswordValid?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsPasswordConfirmValid?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const EmailPwdInput = ({
@@ -31,7 +35,14 @@ const EmailPwdInput = ({
   passwordValue,
   onEnterButtonClick,
   loginStatus,
+  setIsEmailValid,
+  setIsPasswordValid,
+  setIsPasswordConfirmValid,
 }: EmailPwdInputPropsType) => {
+  const INPUT_STATUS_VALUE = {
+    default: "default",
+    error: "error",
+  };
   const [inputStatus, setInputStatus] = useState("default");
   const [inputErrorMessage, setInputErrorMessage] = useState("");
 
@@ -44,37 +55,58 @@ const EmailPwdInput = ({
     }
   };
 
+  const setInputStatusAndErrorMessage = (status: "valid" | ErrorType) => {
+    status === "valid"
+      ? setInputStatus(INPUT_STATUS_VALUE.default)
+      : (setInputStatus(INPUT_STATUS_VALUE.error),
+        setInputErrorMessage(status.message));
+  };
+
   const onInputFocusOutHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
 
-    if (type === "email") {
-      const emailInputStatus = emailInputValidationcheck(inputValue);
-      setInputStatusAndErrorMessage(emailInputStatus);
-    } else if (type === "password") {
-      const passwordInputStatus = passwordInputValidationcheck(inputValue);
-      setInputStatusAndErrorMessage(passwordInputStatus);
-    } else if (type === "password2") {
-      console.log(passwordValue);
-      const passwordInputStatus = passwordInputValidationcheck(
-        passwordValue,
-        inputValue
-      );
-      setInputStatusAndErrorMessage(passwordInputStatus);
+    switch (type) {
+      case "email":
+        const emailInputStatus = emailInputValidationcheck(inputValue);
+        setInputStatusAndErrorMessage(emailInputStatus);
+        emailInputStatus === "valid"
+          ? setIsEmailValid?.(true)
+          : setIsEmailValid?.(false);
+        break;
+      case "password": {
+        let passwordInputStatus;
+        if (loginStatus) {
+          passwordInputStatus = loginPasswordInputValidationcheck(inputValue);
+        } else {
+          passwordInputStatus = signInPasswordInputValidationcheck(inputValue);
+        }
+        setInputStatusAndErrorMessage(passwordInputStatus);
+        passwordInputStatus === "valid"
+          ? setIsPasswordValid?.(true)
+          : setIsPasswordValid?.(false);
+        break;
+      }
+      case "password2":
+        const passwordInputStatus = signInPasswordInputValidationcheck(
+          passwordValue,
+          inputValue
+        );
+        setInputStatusAndErrorMessage(passwordInputStatus);
+        passwordInputStatus === "valid"
+          ? setIsPasswordConfirmValid?.(true)
+          : setIsPasswordConfirmValid?.(false);
+        break;
+      default:
+        null;
     }
-  };
-
-  const setInputStatusAndErrorMessage = (status: "normal" | ErrorType) => {
-    status === "normal"
-      ? setInputStatus("default")
-      : (setInputStatus("error"), setInputErrorMessage(status.message));
   };
 
   useEffect(() => {
     if (loginStatus === "fail") {
       type === "email"
-        ? (setInputStatus("error"),
+        ? (setInputStatus(INPUT_STATUS_VALUE.error),
           setInputErrorMessage(ERROR_MESSAGE.email.check))
-        : (setInputStatus("error"),
+        : (setInputStatus(INPUT_STATUS_VALUE.error),
           setInputErrorMessage(ERROR_MESSAGE.password.check));
     }
   }, [loginStatus]);
@@ -83,15 +115,22 @@ const EmailPwdInput = ({
     setInputStatus("writing");
   };
 
+  const KeyEventHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    const inputElement = e.target as HTMLInputElement;
+    if (e.key === "Enter") {
+      onEnterButtonClick();
+      inputElement.blur();
+      console.log("dd");
+    }
+  };
+
   return (
     <InputDiv>
       <p>{title}</p>
       <EmailPasswordInput
         type={type}
         status={inputStatus}
-        onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
-          EnterLogin(e.key, onEnterButtonClick);
-        }}
+        onKeyDown={KeyEventHandler}
         onChange={onInputChangeHandler}
         onBlur={onInputFocusOutHandler}
         onFocus={onInputFocusHandler}
@@ -114,7 +153,7 @@ type ErrorType =
       type: string;
       message: string;
     }
-  | "normal";
+  | "valid";
 
 const InputDiv = styled.div`
   width: 100%;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,39 +7,18 @@ import icon_google from "@/assets/icons/icon_google.png";
 import icon_kakao from "@/assets/icons/icon_kakao.png";
 import { BlueButton } from "@/components/common/BlueButton";
 import EmailPwdInput from "@/components/SignInUp/EmailPwdInput";
-import { postSignIn } from "@/api/api";
-import { localStorage } from "@/utils/localStorage";
 
-export default function LogIn() {
+export default function Signup() {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState<string | undefined>("");
-  const [loginStatus, setLoginStatus] = useState("normal");
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isPasswordConfirmValid, setIsPasswordConfirmValid] = useState(false);
 
-  useEffect(() => {
-    localStorage.get("accessToken") && location.assign("/Folder");
-  }, []);
-
-  const tryLogin = async () => {
-    const postJsonValue = { email: emailValue, password: passwordValue };
-    let result;
-    try {
-      result = await postSignIn(postJsonValue);
-    } catch (error) {
-      console.error(error);
+  const trySignin = () => {
+    if (isEmailValid && isPasswordValid && isPasswordConfirmValid) {
+      console.log("회원가입 시도");
     }
-
-    if (result.data) successLogin(result);
-    else failLogin();
-  };
-
-  const successLogin = (result: any) => {
-    setLoginStatus("success");
-    localStorage.save("accessToken", result.data.accessToken);
-    location.assign("/Folder");
-  };
-
-  const failLogin = () => {
-    setLoginStatus("fail");
   };
 
   return (
@@ -50,9 +29,9 @@ export default function LogIn() {
             <Image src={login_logo} alt="login log" />
           </Link>
           <p>
-            회원이 아니신가요?{" "}
+            이미 회원이신가요?{" "}
             <Link href="./Signup" id="header-link">
-              <span>회원 가입하기</span>
+              <span>로그인 하기</span>
             </Link>
           </p>
         </TitleDiv>
@@ -64,8 +43,8 @@ export default function LogIn() {
             emailValue={emailValue}
             setPasswordValue={setPasswordValue}
             passwordValue={passwordValue}
-            onEnterButtonClick={tryLogin}
-            loginStatus={loginStatus}
+            onEnterButtonClick={trySignin}
+            setIsEmailValid={setIsEmailValid}
           />
           <EmailPwdInput
             title="비밀번호"
@@ -75,21 +54,32 @@ export default function LogIn() {
             emailValue={emailValue}
             setPasswordValue={setPasswordValue}
             passwordValue={passwordValue}
-            onEnterButtonClick={tryLogin}
-            loginStatus={loginStatus}
+            onEnterButtonClick={trySignin}
+            setIsPasswordValid={setIsPasswordValid}
+          />
+          <EmailPwdInput
+            title="비밀번호 확인"
+            type="password2"
+            isEyeIcon={true}
+            setEmailValue={setEmailValue}
+            emailValue={emailValue}
+            setPasswordValue={setPasswordValue}
+            passwordValue={passwordValue}
+            onEnterButtonClick={trySignin}
+            setIsPasswordConfirmValid={setIsPasswordConfirmValid}
           />
         </InputBoxDiv>
         <BlueButton
-          text="로그인"
+          text="회원가입"
           width="100%"
           margin="0px 0px 32px"
           padding="16px 20px"
           radius="8px"
           fontSize="18px"
-          onBtnHandle={tryLogin}
+          onBtnHandle={trySignin}
         />
         <SocialLoginDiv>
-          <span>소셜 로그인</span>
+          <span>다른 방식으로 가입하기</span>
           <SocialIconDiv>
             <div id="googleIconBackGround">
               <Link href="https://www.google.com/">
@@ -170,23 +160,6 @@ const InputDiv = styled.div`
   gap: 12px;
   position: relative;
 `;
-const EmailPasswordInput = styled.input`
-  width: 100%;
-  padding: 18px 15px;
-  border: 1px solid var(--Grey_300);
-  border-radius: 8px;
-
-  font-family: Pretendard;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px;
-
-  &:focus {
-    outline: none;
-    border: 1px solid var(--Primary);
-  }
-`;
 
 const SocialLoginDiv = styled.div`
   width: 100%;
@@ -226,13 +199,4 @@ const SocialIconDiv = styled.div`
   & > #kakaoIconBackGround {
     background-color: #f5e14b;
   }
-`;
-
-const EyeIconDiv = styled.div`
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  top: 53px;
-  right: 16px;
-  cursor: pointer;
 `;

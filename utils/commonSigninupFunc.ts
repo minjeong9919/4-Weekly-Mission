@@ -1,13 +1,6 @@
 import { ERROR_MESSAGE } from "@/constants/errorMessage";
 // import { pwdInput, pwdEyeIcon } from "../declaration.js";
 
-// enter키 입력으로 로그인 실행
-export function EnterLogin(key: string, func: () => void) {
-  if (key === "Enter") {
-    func();
-  }
-}
-
 export const changeInputBorderColor = (status: string | undefined) => {
   switch (status) {
     case "default":
