@@ -2,6 +2,7 @@ import { useState, useEffect, ChangeEvent, KeyboardEvent } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import eyeoff from "@/assets/icons/eye-off.png";
+import eyeon from "@/assets/icons/eye-on.png";
 import { changeInputBorderColor } from "@/utils/commonSigninupFunc";
 import {
   emailInputValidationcheck,
@@ -10,12 +11,12 @@ import {
   emailDuplicationCheck,
 } from "@/utils/validation";
 import { ERROR_MESSAGE } from "@/constants/errorMessage";
-import { postCheckDuplicationEmail } from "@/api/api";
 import INPUT_STATUS from "@/constants/inputStatus";
 
 type EmailPwdInputPropsType = {
   title: string;
   type: string;
+  valueType: string;
   isEyeIcon?: boolean;
   setEmailValue?: React.Dispatch<React.SetStateAction<string>>;
   emailValue?: string | "";
@@ -32,6 +33,7 @@ type EmailPwdInputPropsType = {
 const EmailPwdInput = ({
   title,
   type,
+  valueType,
   isEyeIcon,
   setEmailValue,
   emailValue,
@@ -51,11 +53,13 @@ const EmailPwdInput = ({
   const [inputStatus, setInputStatus] = useState("default");
   const [inputErrorMessage, setInputErrorMessage] = useState("");
 
+  const [isViewPassword, setIsViewPassword] = useState(false);
+
   const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
-    if (type === "email") {
+    if (valueType === "email") {
       setEmailValue?.(inputValue);
-    } else if (type === "password") {
+    } else if (valueType === "password") {
       setPasswordValue?.(inputValue);
     }
   };
@@ -70,7 +74,7 @@ const EmailPwdInput = ({
   const onInputFocusOutHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
 
-    switch (type) {
+    switch (valueType) {
       case "email":
         emailInputFocusOutHandler(inputValue);
         break;
@@ -119,7 +123,7 @@ const EmailPwdInput = ({
 
   useEffect(() => {
     if (loginStatus === "fail") {
-      type === "email"
+      valueType === "email"
         ? (setInputStatus(INPUT_STATUS_VALUE.error),
           setInputErrorMessage(ERROR_MESSAGE.email.check))
         : (setInputStatus(INPUT_STATUS_VALUE.error),
@@ -143,7 +147,7 @@ const EmailPwdInput = ({
     <InputDiv>
       <p>{title}</p>
       <EmailPasswordInput
-        type={type}
+        type={isViewPassword ? "text" : type}
         status={inputStatus}
         onKeyDown={KeyEventHandler}
         onChange={onInputChangeHandler}
@@ -151,8 +155,12 @@ const EmailPwdInput = ({
         onFocus={onInputFocusHandler}
       />
       {isEyeIcon && (
-        <EyeIconDiv>
-          <Image src={eyeoff} alt="eye_off_icon" />
+        <EyeIconDiv
+          onClick={() => {
+            setIsViewPassword(!isViewPassword);
+          }}
+        >
+          <Image src={isViewPassword ? eyeon : eyeoff} alt="eye_off_icon" />
         </EyeIconDiv>
       )}
       {inputStatus === "error" && (

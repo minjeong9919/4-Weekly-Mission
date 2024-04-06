@@ -16,7 +16,8 @@ export default function LogIn() {
   const [loginStatus, setLoginStatus] = useState("normal");
 
   useEffect(() => {
-    localStorage.get("accessToken") && location.assign("/Folder");
+    localStorage.remove("accssToken");
+    // localStorage.get("accessToken") && location.assign("/Folder");
   }, []);
 
   const tryLogin = async () => {
@@ -60,6 +61,7 @@ export default function LogIn() {
           <EmailPwdInput
             title="이메일"
             type="email"
+            valueType="email"
             setEmailValue={setEmailValue}
             emailValue={emailValue}
             setPasswordValue={setPasswordValue}
@@ -70,6 +72,7 @@ export default function LogIn() {
           <EmailPwdInput
             title="비밀번호"
             type="password"
+            valueType="password"
             isEyeIcon={true}
             setEmailValue={setEmailValue}
             emailValue={emailValue}

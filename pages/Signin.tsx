@@ -19,6 +19,7 @@ export default function Signup() {
   const trySignin = () => {
     if (isEmailValid && isPasswordValid && isPasswordConfirmValid) {
       console.log("회원가입 시도");
+      location.assign("/Folder");
     } else {
       setSignInStatus("fail");
     }
@@ -42,6 +43,7 @@ export default function Signup() {
           <EmailPwdInput
             title="이메일"
             type="email"
+            valueType="email"
             setEmailValue={setEmailValue}
             emailValue={emailValue}
             setPasswordValue={setPasswordValue}
@@ -53,6 +55,7 @@ export default function Signup() {
           <EmailPwdInput
             title="비밀번호"
             type="password"
+            valueType="password"
             isEyeIcon={true}
             setEmailValue={setEmailValue}
             emailValue={emailValue}
@@ -64,7 +67,8 @@ export default function Signup() {
           />
           <EmailPwdInput
             title="비밀번호 확인"
-            type="password2"
+            type="password"
+            valueType="password2"
             isEyeIcon={true}
             setEmailValue={setEmailValue}
             emailValue={emailValue}
