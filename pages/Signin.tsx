@@ -12,11 +12,27 @@ import { postSignIn } from "@/api/api";
 export default function LogIn() {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState<string | undefined>("");
+  const [loginStatus, setLoginStatus] = useState("normal");
 
-  const tryLogin = () => {
+  const tryLogin = async () => {
     const postJsonValue = { email: emailValue, password: passwordValue };
-    console.log(postJsonValue);
-    postSignIn(postJsonValue);
+    let result;
+    try {
+      result = await postSignIn(postJsonValue);
+    } catch (error) {
+      console.error(error);
+    }
+
+    if (result.data) successLogin();
+    else failLogin();
+  };
+
+  const successLogin = () => {
+    setLoginStatus("success");
+  };
+
+  const failLogin = () => {
+    setLoginStatus("fail");
   };
 
   return (
@@ -42,6 +58,7 @@ export default function LogIn() {
             setPasswordValue={setPasswordValue}
             passwordValue={passwordValue}
             onEnterButtonClick={tryLogin}
+            loginStatus={loginStatus}
           />
           <EmailPwdInput
             title="비밀번호"
@@ -52,6 +69,7 @@ export default function LogIn() {
             setPasswordValue={setPasswordValue}
             passwordValue={passwordValue}
             onEnterButtonClick={tryLogin}
+            loginStatus={loginStatus}
           />
         </InputBoxDiv>
         <BlueButton

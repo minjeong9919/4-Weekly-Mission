@@ -7,6 +7,7 @@ import {
   emailInputValidationcheck,
   passwordInputValidationcheck,
 } from "@/utils/validation";
+import { ERROR_MESSAGE } from "@/constants/errorMessage";
 
 type EmailPwdInputPropsType = {
   title: string;
@@ -17,6 +18,7 @@ type EmailPwdInputPropsType = {
   setPasswordValue?: React.Dispatch<React.SetStateAction<string | undefined>>;
   passwordValue?: string | undefined;
   onEnterButtonClick: () => void;
+  loginStatus: string;
 };
 
 const EmailPwdInput = ({
@@ -28,6 +30,7 @@ const EmailPwdInput = ({
   setPasswordValue,
   passwordValue,
   onEnterButtonClick,
+  loginStatus,
 }: EmailPwdInputPropsType) => {
   const [inputStatus, setInputStatus] = useState("default");
   const [inputErrorMessage, setInputErrorMessage] = useState("");
@@ -65,6 +68,16 @@ const EmailPwdInput = ({
       ? setInputStatus("default")
       : (setInputStatus("error"), setInputErrorMessage(status.message));
   };
+
+  useEffect(() => {
+    if (loginStatus === "fail") {
+      type === "email"
+        ? (setInputStatus("error"),
+          setInputErrorMessage(ERROR_MESSAGE.email.check))
+        : (setInputStatus("error"),
+          setInputErrorMessage(ERROR_MESSAGE.password.check));
+    }
+  }, [loginStatus]);
 
   const onInputFocusHandler = () => {
     setInputStatus("writing");

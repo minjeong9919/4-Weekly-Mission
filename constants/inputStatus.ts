@@ -16,6 +16,11 @@ const INPUT_STATUS = {
     type: "email",
     message: ERROR_MESSAGE.email.inUse,
   },
+  failLoginEmail: {
+    errorName: "failLoginEmail",
+    type: "email",
+    message: ERROR_MESSAGE.email.check,
+  },
   noPassword: {
     errorName: "noPassword",
     type: "password",
@@ -30,6 +35,11 @@ const INPUT_STATUS = {
     errorName: "noMatchPassword",
     type: "password",
     message: ERROR_MESSAGE.password.recheck,
+  },
+  failLoginPassword: {
+    errorName: "failLoginPassword",
+    type: "password",
+    message: ERROR_MESSAGE.password.check,
   },
 };
 export default INPUT_STATUS;
