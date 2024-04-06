@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,11 +8,16 @@ import icon_kakao from "@/assets/icons/icon_kakao.png";
 import { BlueButton } from "@/components/common/BlueButton";
 import EmailPwdInput from "@/components/SignInUp/EmailPwdInput";
 import { postSignIn } from "@/api/api";
+import { localStorage } from "@/utils/localStorage";
 
 export default function LogIn() {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState<string | undefined>("");
   const [loginStatus, setLoginStatus] = useState("normal");
+
+  useEffect(() => {
+    localStorage.get("accessToken") && location.assign("/Folder");
+  }, []);
 
   const tryLogin = async () => {
     const postJsonValue = { email: emailValue, password: passwordValue };
@@ -23,12 +28,14 @@ export default function LogIn() {
       console.error(error);
     }
 
-    if (result.data) successLogin();
+    if (result.data) successLogin(result);
     else failLogin();
   };
 
-  const successLogin = () => {
+  const successLogin = (result: any) => {
     setLoginStatus("success");
+    localStorage.save("accessToken", result.data.accessToken);
+    location.assign("/Folder");
   };
 
   const failLogin = () => {
