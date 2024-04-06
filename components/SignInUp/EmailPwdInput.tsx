@@ -120,7 +120,6 @@ const EmailPwdInput = ({
     if (e.key === "Enter") {
       onEnterButtonClick();
       inputElement.blur();
-      console.log("dd");
     }
   };
 
