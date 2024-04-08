@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,9 +6,43 @@ import login_logo from "@/assets/login_logo.png";
 import icon_google from "@/assets/icons/icon_google.png";
 import icon_kakao from "@/assets/icons/icon_kakao.png";
 import { BlueButton } from "@/components/common/BlueButton";
-import EmailPwdInput from "@/components/SignIn_Up/EmailPwdInput";
+import EmailPwdInput from "@/components/SignInUp/EmailPwdInput";
+import { postSignIn } from "@/api/api";
+import { localStorage } from "@/utils/localStorage";
 
-export default function Signup() {
+export default function LogIn() {
+  const [emailValue, setEmailValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState<string | undefined>("");
+  const [loginStatus, setLoginStatus] = useState("normal");
+
+  useEffect(() => {
+    localStorage.remove("accssToken");
+    // localStorage.get("accessToken") && location.assign("/Folder");
+  }, []);
+
+  const tryLogin = async () => {
+    const postJsonValue = { email: emailValue, password: passwordValue };
+    let result;
+    try {
+      result = await postSignIn(postJsonValue);
+    } catch (error) {
+      console.error(error);
+    }
+
+    if (result.data) successLogin(result);
+    else failLogin();
+  };
+
+  const successLogin = (result: any) => {
+    setLoginStatus("success");
+    localStorage.save("accessToken", result.data.accessToken);
+    location.assign("/Folder");
+  };
+
+  const failLogin = () => {
+    setLoginStatus("fail");
+  };
+
   return (
     <BackgroundDiv>
       <ContainerDiv>
@@ -17,31 +51,48 @@ export default function Signup() {
             <Image src={login_logo} alt="login log" />
           </Link>
           <p>
-            이미 회원이신가요?{" "}
+            회원이 아니신가요?{" "}
             <Link href="./Signin" id="header-link">
-              <span>로그인 하기</span>
+              <span>회원 가입하기</span>
             </Link>
           </p>
         </TitleDiv>
         <InputBoxDiv>
-          <EmailPwdInput title="이메일" type="email" />
-          <EmailPwdInput title="비밀번호" type="password" isEyeIcon={true} />
           <EmailPwdInput
-            title="비밀번호 확인"
+            title="이메일"
+            type="email"
+            valueType="email"
+            setEmailValue={setEmailValue}
+            emailValue={emailValue}
+            setPasswordValue={setPasswordValue}
+            passwordValue={passwordValue}
+            onEnterButtonClick={tryLogin}
+            loginStatus={loginStatus}
+          />
+          <EmailPwdInput
+            title="비밀번호"
             type="password"
+            valueType="password"
             isEyeIcon={true}
+            setEmailValue={setEmailValue}
+            emailValue={emailValue}
+            setPasswordValue={setPasswordValue}
+            passwordValue={passwordValue}
+            onEnterButtonClick={tryLogin}
+            loginStatus={loginStatus}
           />
         </InputBoxDiv>
         <BlueButton
-          text="회원가입"
+          text="로그인"
           width="100%"
           margin="0px 0px 32px"
           padding="16px 20px"
           radius="8px"
           fontSize="18px"
+          onBtnHandle={tryLogin}
         />
         <SocialLoginDiv>
-          <span>다른 방식으로 가입하기</span>
+          <span>소셜 로그인</span>
           <SocialIconDiv>
             <div id="googleIconBackGround">
               <Link href="https://www.google.com/">
@@ -122,6 +173,23 @@ const InputDiv = styled.div`
   gap: 12px;
   position: relative;
 `;
+const EmailPasswordInput = styled.input`
+  width: 100%;
+  padding: 18px 15px;
+  border: 1px solid var(--Grey_300);
+  border-radius: 8px;
+
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+
+  &:focus {
+    outline: none;
+    border: 1px solid var(--Primary);
+  }
+`;
 
 const SocialLoginDiv = styled.div`
   width: 100%;
@@ -161,4 +229,13 @@ const SocialIconDiv = styled.div`
   & > #kakaoIconBackGround {
     background-color: #f5e14b;
   }
+`;
+
+const EyeIconDiv = styled.div`
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 53px;
+  right: 16px;
+  cursor: pointer;
 `;

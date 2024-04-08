@@ -23,23 +23,17 @@ function FolderItem({
   const { imageSource, createdAt, description, url, id } = item;
   const { created_at, favorite, image_source } = item;
   const [isPopOverVisible, setIsPopOverVisible] = useState(false);
+  const createdAtTime: string = String(createdAt ?? created_at);
 
-  let time = "";
-  let img_src: string;
+  const time = CalcTime(createdAtTime);
+  const img_src = image_source || imageSource;
 
-  if (created_at) {
-    time = CalcTime(created_at);
-    img_src = image_source ?? "";
-  } else {
-    time = CalcTime(createdAt);
-    img_src = imageSource ?? "";
-  }
   return (
     <a href={url} target="_blank" rel="noreferrer">
       <Folder>
         <ImageContainer>
           {img_src ? (
-            <Image fill src={img_src} alt="이미지" id="folderImage"></Image>
+            <Image fill src={img_src} alt="이미지" id="folderImage" />
           ) : (
             <DefaultImage>
               <Image src={logo} alt="logo" id="defaultImage" />
@@ -55,7 +49,7 @@ function FolderItem({
                 e.preventDefault();
                 setIsPopOverVisible(!isPopOverVisible);
               }}
-            ></Kebab>
+            />
             <PopOver
               $isPopOverVisible={isPopOverVisible}
               setIsPopOverVisible={setIsPopOverVisible}
@@ -65,7 +59,7 @@ function FolderItem({
               $right="0px"
               $isModalVisible={$isModalVisible}
               setIsModalVisible={setIsModalVisible}
-            ></PopOver>
+            />
           </TimeContainer>
           <Description>{description}</Description>
 

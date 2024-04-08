@@ -27,11 +27,11 @@ export const PopOver = ({
       <DeleteModal
         isModalVisible={$isModalVisible}
         setIsModalVisible={setIsModalVisible}
-      ></DeleteModal>
+      />
       <AddToFolder
         isModalVisible={$isModalVisible}
         setIsModalVisible={setIsModalVisible}
-      ></AddToFolder>
+      />
       <MenuOptions $isVisible={$isPopOverVisible} $top={$top} $right={$right}>
         {$options.map((option, index) => (
           <Option

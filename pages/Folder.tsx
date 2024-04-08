@@ -13,17 +13,10 @@ import { EditNameModal } from "../components/common/modals/EditNameModal";
 import { DeleteModal } from "../components/common/modals/DeleteModal";
 import { AddFolderModal } from "../components/common/modals/AddFolderModal";
 import { COLORS } from "../constants/colors";
+import { CommonFolderInfoProps } from "@/constants/commonTypes";
 
-interface dataType {
-  imageSource?: string;
-  image_source?: string;
-  createdAt?: Date | null;
-  created_at?: Date | null;
-  description: string;
+interface dataType extends CommonFolderInfoProps {
   title: string;
-  url: string;
-  id: string;
-  favorite: boolean;
   updated_at: string | null;
 }
 
@@ -34,16 +27,18 @@ const Folder = () => {
   const [isModalVisible, setIsModalVisible] = useState("");
   const [searchInputValue, setSearchInputValue] = useState("");
 
-  const fetchData = async () => {
-    try {
-      const response = await getAllLinkData(listId);
-      const result = await response.data;
-      setData(result);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  fetchData();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getAllLinkData(listId);
+        const result = await response.data;
+        setData(result);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, [listId]);
 
   const addLinkDivRef = useRef(null);
   const footerDivRef = useRef(null);
@@ -137,7 +132,7 @@ const Folder = () => {
           items={data}
           $isModalVisible={isModalVisible}
           setIsModalVisible={setIsModalVisible}
-        ></FolderList>
+        />
       ) : (
         <NoLinkMsg>저장된 링크가 없습니다.</NoLinkMsg>
       )}

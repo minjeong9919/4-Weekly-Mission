@@ -9,7 +9,7 @@ export const AddFolderModal = ({
   setIsModalVisible,
 }: CommonModalProps) => {
   const handleCloseBtn = () => {
-    setIsModalVisible(null);
+    setIsModalVisible("");
   };
 
   return (
@@ -28,7 +28,7 @@ export const AddFolderModal = ({
           padding="16px 20px"
           fontSize="16px"
           radius="8px"
-        ></BlueButton>
+        />
       </Modal>
     </Background>
   );

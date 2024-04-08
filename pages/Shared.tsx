@@ -1,46 +1,65 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getFolderInfo } from "@/api/api";
 import HeaderElement from "../components/common/HeaderElement";
 import FooterElement from "../components/common/FooterElement";
 import SharedSection from "../components/shared/SharedSection";
 import Input from "../components/common/Input";
 import FolderList from "../components/common/FolderList";
-import { DeleteModal } from "../components/common/modals/DeleteModal";
 import { AddFolderModal } from "../components/common/modals/AddFolderModal";
-import { useGetPromise } from "/hooks/uesGetPromise";
-import "../styles/shared.css";
+import { DeleteModal } from "@/components/common/modals/DeleteModal";
+import { OwnerProps } from "@/constants/commonTypes";
 
-function Shared() {
-  const foldersData: any = useGetPromise(getFolderInfo);
-  const folders = foldersData?.folder?.links || [];
+export default function Shared() {
   const [searchInputValue, setSearchInputValue] = useState("");
-  const [isModalVisible, setIsModalVisible] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState("");
+  const [data, setData] = useState([]);
+  const [folderName, setFolderName] = useState("");
+  const [owner, setOwner] = useState<OwnerProps>({
+    id: 0,
+    name: "",
+    profileImageSource: "",
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getFolderInfo();
+        const { links, name, owner } = await response.folder;
+        setOwner(owner);
+        setFolderName(name);
+        setData(links);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
       <DeleteModal
-        $isModalVisible={isModalVisible}
+        isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
       />
       <AddFolderModal
-        $isModalVisible={isModalVisible}
+        isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
       />
       <HeaderElement $positionval="" />
-      <SharedSection></SharedSection>
+      <SharedSection folderName={folderName} owner={owner} />
       <Input
         inputValue={searchInputValue}
         setInputValue={setSearchInputValue}
         onEnterButtonHandle={() => {}}
       />
-      <FolderList
-        items={folders}
-        $isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-      ></FolderList>
-      <FooterElement></FooterElement>
+      {data[0] ? (
+        <FolderList
+          items={data}
+          $isModalVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
+        />
+      ) : null}
+      <FooterElement />
     </>
   );
 }
-
-export default Shared;

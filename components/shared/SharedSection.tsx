@@ -1,37 +1,50 @@
-import { useState, useEffect } from "react";
-import { getFolderInfo } from "../../api/api";
-import smileIcon from "../../assets/icons/icon_smile.png";
+import icon_smile from "@/assets/icons/icon_smile.png";
 import styled from "styled-components";
+import { OwnerProps } from "@/constants/commonTypes";
 
-const SharedSection = () => {
-  const [folderName, setFolderName] = useState([]);
-  const [owner, setOwner] = useState<any>([]);
+type useType = {
+  folderName: string;
+  owner: OwnerProps;
+};
+const SharedSection = ({ folderName, owner }: useType) => {
   const { profileImageSource, name } = owner;
 
-  async function handleLoad() {
-    const folderInfo = await getFolderInfo();
-    const { name, owner } = folderInfo.folder;
-    setFolderName(name);
-    setOwner(owner);
-  }
-
-  useEffect(() => {
-    handleLoad();
-  }, []);
-
   return (
-    <section className="codeit-mark-section">
+    <Section className="codeit-mark-section">
       <OwnerProfile
-        src={profileImageSource || smileIcon}
-        alt={"smile icon"}
-      ></OwnerProfile>
+        src={profileImageSource || icon_smile.toString()}
+        alt="smile icon"
+      />
       <span>{name}</span>
-      <div id="favorites">
+      <FolderNameDiv>
         <h1>{folderName}</h1>
-      </div>
-    </section>
+      </FolderNameDiv>
+    </Section>
   );
 };
+
+const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--Grey_100);
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 60px;
+
+  & > span {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+`;
+
+const FolderNameDiv = styled.div`
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+`;
 
 const OwnerProfile = styled.img`
   display: flex;

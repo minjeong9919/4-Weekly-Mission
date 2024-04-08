@@ -1,34 +1,15 @@
 import styled from "styled-components";
 import closeIcon from "@/assets/icons/closeModal.png";
 import Image from "next/image";
-import kakao from "../../../assets/icons/icon_kakao.png";
-import facebook from "../../../assets/icons/icon_facebook.png";
-import link from "../../../assets/icons/link.png";
 import { CommonModalProps } from "@/constants/commonTypes";
+import { SOCIAL_ICONS } from "@/constants/socialIcon";
 
 export const SharedModal = ({
   isModalVisible,
   setIsModalVisible,
 }: CommonModalProps) => {
-  const ICONS = [
-    {
-      name: "카카오톡",
-      backgroundColor: "#F5E14B",
-      imgUrl: kakao,
-    },
-    {
-      name: "페이스북",
-      backgroundColor: "#1877F2",
-      imgUrl: facebook,
-    },
-    {
-      name: "링크 복사",
-      imgUrl: link,
-    },
-  ];
-
   const handleCloseBtn = () => {
-    setIsModalVisible(null);
+    setIsModalVisible("");
   };
 
   return (
@@ -42,7 +23,7 @@ export const SharedModal = ({
           <p>폴더명</p>
         </Title>
         <Icons>
-          {ICONS.map((icon) => (
+          {SOCIAL_ICONS.map((icon) => (
             <Icon key={icon.name}>
               <IconImg $backgroundColor={icon.backgroundColor}>
                 <Image src={icon.imgUrl} alt={icon.name} />
