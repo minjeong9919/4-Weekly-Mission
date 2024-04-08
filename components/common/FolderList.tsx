@@ -3,7 +3,7 @@ import FolderItem from "./FolderItem";
 import { CommonFolderInfoProps } from "@/constants/commonTypes";
 
 type FolderPropsType = {
-  items: any;
+  items: CommonFolderInfoProps[];
   $isModalVisible: any;
   setIsModalVisible: any;
 };

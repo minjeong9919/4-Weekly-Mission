@@ -13,17 +13,10 @@ import { EditNameModal } from "../components/common/modals/EditNameModal";
 import { DeleteModal } from "../components/common/modals/DeleteModal";
 import { AddFolderModal } from "../components/common/modals/AddFolderModal";
 import { COLORS } from "../constants/colors";
+import { CommonFolderInfoProps } from "@/constants/commonTypes";
 
-interface dataType {
-  imageSource?: string;
-  image_source?: string;
-  createdAt?: Date | null;
-  created_at?: Date | null;
-  description: string;
+interface dataType extends CommonFolderInfoProps {
   title: string;
-  url: string;
-  id: string;
-  favorite: boolean;
   updated_at: string | null;
 }
 

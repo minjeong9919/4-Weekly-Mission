@@ -23,8 +23,9 @@ function FolderItem({
   const { imageSource, createdAt, description, url, id } = item;
   const { created_at, favorite, image_source } = item;
   const [isPopOverVisible, setIsPopOverVisible] = useState(false);
+  const createdAtTime: string = String(createdAt ?? created_at);
 
-  const time = CalcTime(created_at || createdAt);
+  const time = CalcTime(createdAtTime);
   const img_src = image_source || imageSource;
 
   return (

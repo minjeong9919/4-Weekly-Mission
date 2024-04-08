@@ -6,8 +6,8 @@ export interface CommonModalProps {
 export interface CommonFolderInfoProps {
   imageSource?: string;
   image_source?: string;
-  createdAt?: Date | null;
-  created_at?: Date | null;
+  createdAt?: string;
+  created_at?: string;
   description: string;
   url: string;
   id: string;

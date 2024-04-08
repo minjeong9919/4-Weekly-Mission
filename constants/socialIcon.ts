@@ -1,6 +1,6 @@
-import kakao from "../../../assets/icons/icon_kakao.png";
-import facebook from "../../../assets/icons/icon_facebook.png";
-import link from "../../../assets/icons/link.png";
+import kakao from "@/assets/icons/icon_kakao.png";
+import facebook from "@/assets/icons/icon_facebook.png";
+import link from "@/assets/icons/link.png";
 
 export const SOCIAL_ICONS = [
   {
