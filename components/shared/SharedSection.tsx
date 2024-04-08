@@ -10,18 +10,41 @@ const SharedSection = ({ folderName, owner }: useType) => {
   const { profileImageSource, name } = owner;
 
   return (
-    <section className="codeit-mark-section">
+    <Section className="codeit-mark-section">
       <OwnerProfile
         src={profileImageSource || icon_smile.toString()}
         alt="smile icon"
       />
       <span>{name}</span>
-      <div id="favorites">
+      <FolderNameDiv>
         <h1>{folderName}</h1>
-      </div>
-    </section>
+      </FolderNameDiv>
+    </Section>
   );
 };
+
+const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--Grey_100);
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 60px;
+
+  & > span {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+`;
+
+const FolderNameDiv = styled.div`
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+`;
 
 const OwnerProfile = styled.img`
   display: flex;
