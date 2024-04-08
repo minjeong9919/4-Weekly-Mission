@@ -1,27 +1,20 @@
-import { useState, useEffect } from "react";
-import { getFolderInfo } from "../../api/api";
-import smileIcon from "../../assets/icons/icon_smile.png";
+import icon_smile from "@/assets/icons/icon_smile.png";
 import styled from "styled-components";
+import { OwnerProps } from "@/constants/commonTypes";
 
-const SharedSection = () => {
-  const [folderName, setFolderName] = useState([]);
-  const [owner, setOwner] = useState<any>([]);
+type useType = {
+  folderName: string;
+  owner: OwnerProps;
+};
+const SharedSection = ({ folderName, owner }: useType) => {
   const { profileImageSource, name } = owner;
-
-  async function handleLoad() {
-    const folderInfo = await getFolderInfo();
-    const { name, owner } = folderInfo.folder;
-    setFolderName(name);
-    setOwner(owner);
-  }
-
-  useEffect(() => {
-    handleLoad();
-  }, []);
 
   return (
     <section className="codeit-mark-section">
-      <OwnerProfile src={profileImageSource || smileIcon} alt={"smile icon"} />
+      <OwnerProfile
+        src={profileImageSource || icon_smile.toString()}
+        alt="smile icon"
+      />
       <span>{name}</span>
       <div id="favorites">
         <h1>{folderName}</h1>

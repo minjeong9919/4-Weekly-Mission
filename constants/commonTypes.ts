@@ -24,3 +24,9 @@ export interface CommonButtonCustomProps {
   radius?: string;
   onBtnHandle?: () => void;
 }
+
+export type OwnerProps = {
+  id: number;
+  name: string;
+  profileImageSource: string;
+};
