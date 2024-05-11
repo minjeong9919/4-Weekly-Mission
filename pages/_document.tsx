@@ -5,7 +5,7 @@ export default function MyDocument(props: any) {
   return (
     <Html>
       <Head>{/* Place your head elements here */}</Head>
-      <body>
+      <body id="modal-root">
         <Main />
         <NextScript />
       </body>
