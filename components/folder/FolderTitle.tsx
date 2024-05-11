@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Share from "../../assets/icons/share.svg";
-import Pen from "../../assets/icons/pen.svg";
-import Trash from "../../assets/icons/trash.svg";
+import Share from "@/public/assets/icons/share.svg";
+import Pen from "@/public/assets/icons/pen.svg";
+import Trash from "@/public/assets/icons/trash.svg";
 
 type FolderTitlePropsType = {
   titleName: string;

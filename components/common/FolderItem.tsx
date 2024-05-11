@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { CalcTime } from "@/utils/calculator";
-import Star from "@/assets/icons/card_star.svg";
-import Kebab from "@/assets/icons/kebab.svg";
-import logo from "@/assets/icons/logo.png";
+import Star from "@/public/assets/icons/card_star.svg";
+import Kebab from "@/public/assets/icons/kebab.svg";
+import logo from "@/public/assets/icons/logo.png";
 import { PopOver } from "./modals/PopOver";
 import Image from "next/image";
 import styles from "@/styles/shared.module.css";
+import Link from "next/link";
 import { CommonFolderInfoProps } from "@/constants/commonTypes";
 
 interface FolderItemProps {
@@ -29,7 +30,7 @@ function FolderItem({
   const img_src = image_source || imageSource;
 
   return (
-    <a href={url} target="_blank" rel="noreferrer">
+    <Link href={url || './'} target="_blank" rel="noreferrer">
       <Folder>
         <ImageContainer>
           {img_src ? (
@@ -64,10 +65,9 @@ function FolderItem({
           <Description>{description}</Description>
 
           <DateText>2023. 3. 15</DateText>
-        </TextBox>{" "}
-        *
-      </Folder>
-    </a>
+        </TextBox>
+              </Folder>
+    </Link>
   );
 }
 
@@ -111,12 +111,13 @@ const DefaultImage = styled.div`
 
 const TextBox = styled.div`
   width: 100%;
-  height: 135px;
+  height: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 15px 20px;
   border-radius: 0px 0px 15px 15px;
+  text-decoration-line: none;
 `;
 
 const Description = styled.div`
@@ -129,6 +130,7 @@ const Description = styled.div`
   line-height: 24px;
   margin: 0px;
   color: #000;
+  text-decoration: none;
 
   display: -webkit-box;
   -webkit-box-orient: vertical;

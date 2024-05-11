@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import card1 from "@/assets/cards/card1.png";
-import card2 from "@/assets/cards/card2.png";
-import card3 from "@/assets/cards/card3.png";
-import card4 from "@/assets/cards/card4.png";
+import card1 from "@/public/assets/cards/card1.png";
+import card2 from "@/public/assets/cards/card2.png";
+import card3 from "@/public/assets/cards/card3.png";
+import card4 from "@/public/assets/cards/card4.png";
 import Image, { StaticImageData } from "next/image";
 
 interface propTypes {

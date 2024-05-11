@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import closeIcon from "@/assets/icons/closeModal.png";
+import closeIcon from "@/public/assets/icons/closeModal.png";
 import Image from "next/image";
 import { RedButton } from "../../../components/common/RedButton";
 import { CommonModalProps } from "@/constants/commonTypes";

@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import logo from "@/assets/Linkbrary.png";
-import profile from "@/assets/icons/icon_myprofile.png";
+import logo from "@/public/assets/Linkbrary.png";
+import profile from "@/public/assets/icons/icon_myprofile.png";
 import { getUserInfo } from "../../api/api";
 import { useGetPromise } from "@/hooks/useGetPromise";
 import Image from "next/image";
+import Link from "next/link";
 
 interface propTypes {
   $positionval: string;
@@ -16,7 +17,7 @@ function HeaderElement({ $positionval }: propTypes) {
 
   return (
     <HeaderDiv $positionval={$positionval}>
-      <Image src={logo} alt="logo" />
+      <Link href={'/'}><Image src={logo} alt="logo" /></Link>
       <MyProfileDiv>
         {user ? (
           <MyProfileNameDiv>

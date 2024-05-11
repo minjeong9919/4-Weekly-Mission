@@ -56,6 +56,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "s.pstatic.net",
       },
+      {
+        protocol: "https",
+        hostname: "ssl.pstatic.net",
+      },
+      {
+        protocol: "https",
+        hostname: "data1.pokemonkorea.co.kr",
+      },
     ],
   },
 };

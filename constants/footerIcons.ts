@@ -1,7 +1,7 @@
-import facebookIcon from "@/assets/icons/icon_facebook.png";
-import twitterIcon from "@/assets/icons/icon_twitter.png";
-import youtubeIcon from "@/assets/icons/icon_youtube.png";
-import instagramIcon from "@/assets/icons/icon_instagram.png";
+import facebookIcon from "@/public/assets/icons/icon_facebook.png";
+import twitterIcon from "@/public/assets/icons/icon_twitter.png";
+import youtubeIcon from "@/public/assets/icons/icon_youtube.png";
+import instagramIcon from "@/public/assets/icons/icon_instagram.png";
 import Image, { StaticImageData } from "next/image";
 
 type footerIconsType = {

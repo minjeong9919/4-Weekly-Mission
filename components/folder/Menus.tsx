@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getFolderList } from "../../api/api";
 import styled from "styled-components";
-import Union from "@/assets/icons/Union.svg";
+import Union from "@/public/assets/icons/Union.svg";
 import { COLORS } from "../../constants/colors";
 import { useGetPromise } from "@/hooks/useGetPromise";
 

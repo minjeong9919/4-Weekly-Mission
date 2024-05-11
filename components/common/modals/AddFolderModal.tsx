@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { BlueButton } from "../BlueButton";
-import closeIcon from "@/assets/icons/closeModal.png";
+// import closeIcon from '@/public/assets/icons/closeModal.png';
 import Image from "next/image";
 import { CommonModalProps } from "@/constants/commonTypes";
 
@@ -16,7 +16,7 @@ export const AddFolderModal = ({
     <Background $isVisible={isModalVisible}>
       <Modal>
         <Close onClick={() => handleCloseBtn()}>
-          <Image src={closeIcon} alt="닫기 아이콘" />
+          {/* <Image src={closeIcon} alt="닫기 아이콘" /> */}
         </Close>
         <Title>폴더 추가</Title>
         <Input placeholder="내용 입력" />

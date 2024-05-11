@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Link from "@/assets/icons/link.svg";
+import Link from "@/public/assets/icons/link.svg";
 import { BlueButton } from "../common/BlueButton";
 import { forwardRef, SetStateAction, Dispatch } from "react";
 
