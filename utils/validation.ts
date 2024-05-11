@@ -7,8 +7,9 @@ function emailCheck(email_address: string) {
   return Boolean(email_regex.test(email_address));
 }
 
-type ErrorType =
-  | {
+type EmailValid =
+  // error
+    {
       errorName: string;
       type: string;
       message: string;
@@ -17,15 +18,15 @@ type ErrorType =
 
 // 이메일 에러 검사
 export const emailInputValidationcheck = (email: string): ErrorType => {
-  let status: ErrorType;
+  let emailValid: EmailValid;
   if (!email) {
-    status = INPUT_STATUS.noEmail;
+    emailValid = INPUT_STATUS.noEmail;
   } else if (!emailCheck(email)) {
-    status = INPUT_STATUS.wrongEmail;
+    emailValid = INPUT_STATUS.wrongEmail;
   } else {
-    status = "valid";
+    emailValid = "valid";
   }
-  return status;
+  return emailValid;
 };
 
 // 이메일 중복 검사
@@ -40,8 +41,8 @@ export const emailDuplicationCheck = async (email: string) => {
 // 로그인할 때 비밀번호 에러 검사
 export const loginPasswordInputValidationcheck = (
   password: string | undefined
-): ErrorType => {
-  let status: ErrorType;
+): EmailValid => {
+  let status: EmailValid;
   if (!password) {
     status = INPUT_STATUS.noPassword;
   } else {

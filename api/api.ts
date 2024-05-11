@@ -53,6 +53,11 @@ export const postSignIn = async (data: any) => {
   return fetchPOSTJson(url, data);
 };
 
+export const postSignUp = async(data: {email: string; password: string}) => {
+  const url = `${BASE_URL}sign-up`;
+  return fetchPOSTJson(url, data);
+}
+
 export const postCheckDuplicationEmail = async (data: any) => {
   const url = `${BASE_URL}check-email`;
   return fetchPOSTJson(url, data);

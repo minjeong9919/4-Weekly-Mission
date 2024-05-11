@@ -3,7 +3,7 @@ import HeaderElement from "../components/common/HeaderElement";
 import FooterElement from "../components/common/FooterElement";
 import { Headline } from "../components/home/Headline";
 import { CardFrame } from "../components/home/CardFrame";
-import cards_img from "/assets/cards/cards_img.png";
+import cards_img from "/public/assets/cards/cards_img.png";
 import Image from "next/image";
 
 export default function Home() {

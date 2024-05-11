@@ -1,41 +1,95 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
-import login_logo from "@/assets/login_logo.png";
-import icon_google from "@/assets/icons/icon_google.png";
-import icon_kakao from "@/assets/icons/icon_kakao.png";
+import login_logo from "@/public/assets/login_logo.png";
+import icon_google from "@/public/assets/icons/icon_google.png";
+import icon_kakao from "@/public/assets/icons/icon_kakao.png";
 import { BlueButton } from "@/components/common/BlueButton";
 import EmailPwdInput from "@/components/SignInUp/EmailPwdInput";
+import { postSignIn } from "@/api/api";
+import INPUT_ERROR_INFO from "@/type/inputErrorInfo";
+import { emailInputValidationcheck, loginPasswordInputValidationcheck } from "@/utils/validation";
+import { useToast } from "@/contexts/ToastContext";
 
-export default function Signup() {
+export default function Signin() {
   const [emailValue, setEmailValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState<string | undefined>("");
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
-  const [isPasswordConfirmValid, setIsPasswordConfirmValid] = useState(false);
-  const [signInStatus, setSignInStatus] = useState("normal");
+  const [emailErrorInfo, setEmailErrorInfo] = useState<INPUT_ERROR_INFO>("valid");
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  
+  const [passwordValue, setPasswordValue] = useState("");
+  const [passwordErrorInfo, setPasswordErrorInfo] = useState<INPUT_ERROR_INFO>("valid");
+  const passwordInputRef = useRef<HTMLInputElement>(null);
 
-  const trySignin = () => {
-    if (isEmailValid && isPasswordValid && isPasswordConfirmValid) {
-      console.log("회원가입 시도");
-      location.assign("/Folder");
-    } else {
-      setSignInStatus("fail");
-    }
+  const toast = useToast();
+
+
+  const trySignin = async () => {
+    let result;
+    if (emailErrorInfo==="valid" && passwordErrorInfo === "valid") {
+      const postJsonValue = {email: emailValue, password: passwordValue};
+      try{
+        result = await postSignIn(postJsonValue);
+      } catch (error){
+        console.error("로그인 오류");
+      }
+
+      if(result.data) {
+        location.assign('/folder');
+      } else if (result.error) {
+        toast.setViewToast(true);
+        toast.setText("로그인에 성공하지 못햇습니다.");
+        console.log(result);
+      }
   };
+}
+  
+  const emailFocusOutHandler = () => {
+    const emailInputStatus = emailInputValidationcheck(emailValue);
+    setEmailErrorInfo(emailInputStatus);
+  }
+
+  const emailChangeHandler = () => {
+    if(emailInputRef.current) {
+      setEmailValue(emailInputRef.current.value)
+    }
+  }
+  
+  const passwordFocusOutHandler = () => {
+    const passwordStatus = loginPasswordInputValidationcheck(passwordValue)
+    setPasswordErrorInfo(passwordStatus);
+  }
+  
+  const passwordChangeHandler = () => {
+    if(passwordInputRef.current) {
+      setPasswordValue(passwordInputRef.current.value)
+    }
+  }
+  
+    const emailventFunc = { 
+      onFocusOut: emailFocusOutHandler,
+      onChange: emailChangeHandler
+    }
+
+    const passwordEventFunc = {
+      onFocusOut: passwordFocusOutHandler,
+      onChange: passwordChangeHandler,
+    }
+  
 
   return (
     <BackgroundDiv>
       <ContainerDiv>
         <TitleDiv>
           <Link href="./">
-            <Image src={login_logo} alt="login log" />
+            <Image src={login_logo} alt="logo" />
           </Link>
           <p>
-            이미 회원이신가요?{" "}
+            회원이 아니신가요?{"  "}
             <Link href="./Signup" id="header-link">
-              <span>로그인 하기</span>
+              <span>회원가입 하기</span>
             </Link>
           </p>
         </TitleDiv>
@@ -43,28 +97,18 @@ export default function Signup() {
           <EmailPwdInput
             title="이메일"
             type="email"
-            valueType="email"
-            setEmailValue={setEmailValue}
-            emailValue={emailValue}
-            setPasswordValue={setPasswordValue}
-            passwordValue={passwordValue}
-            onEnterButtonClick={trySignin}
-            setIsEmailValid={setIsEmailValid}
-            signInStatus={signInStatus}
-          />
+            eventFunc = {emailventFunc}
+            inputErrorInfo = {emailErrorInfo}
+            inputRef = {emailInputRef}
+            />
           <EmailPwdInput
             title="비밀번호"
             type="password"
-            valueType="password"
-            isEyeIcon={true}
-            setEmailValue={setEmailValue}
-            emailValue={emailValue}
-            setPasswordValue={setPasswordValue}
-            passwordValue={passwordValue}
-            onEnterButtonClick={trySignin}
-            setIsPasswordValid={setIsPasswordValid}
-            signInStatus={signInStatus}
+            eventFunc={passwordEventFunc}
+            inputErrorInfo={passwordErrorInfo}
+            inputRef={passwordInputRef}
           />
+          { /*
           <EmailPwdInput
             title="비밀번호 확인"
             type="password"
@@ -77,7 +121,7 @@ export default function Signup() {
             onEnterButtonClick={trySignin}
             setIsPasswordConfirmValid={setIsPasswordConfirmValid}
             signInStatus={signInStatus}
-          />
+          /> */}
         </InputBoxDiv>
         <BlueButton
           text="회원가입"

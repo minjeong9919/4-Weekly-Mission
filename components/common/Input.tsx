@@ -1,7 +1,7 @@
-import react, { KeyboardEvent } from "react";
+import { KeyboardEvent } from "react";
 import styled from "styled-components";
-import searchIcon from "../../assets/icons/icon_search.png";
-import Delete from "@/assets/icons/delete.svg";
+import searchIcon from "@/public/assets/icons/icon_search.png";
+import Delete from "@/public/assets/icons/delete.svg";
 import Image from "next/image";
 
 type InputPropsType = {
