@@ -9,17 +9,16 @@ import Image from "next/image";
 import styles from "@/styles/shared.module.css";
 import Link from "next/link";
 import { CommonFolderInfoProps } from "@/constants/commonTypes";
+import { useModal } from "@/contexts/ModalContext";
+import { DeleteModal } from "./modals/DeleteModal";
+import { AddToFolder } from "./modals/AddToFolder";
 
 interface FolderItemProps {
   item: CommonFolderInfoProps;
-  $isModalVisible: string;
-  setIsModalVisible: any;
 }
 
 function FolderItem({
   item,
-  $isModalVisible,
-  setIsModalVisible,
 }: FolderItemProps) {
   const { imageSource, createdAt, description, url, id } = item;
   const { created_at, favorite, image_source } = item;
@@ -28,6 +27,27 @@ function FolderItem({
 
   const time = CalcTime(createdAtTime);
   const img_src = image_source || imageSource;
+
+  const modal = useModal();
+
+  const openDeleteModal = () => {
+    modal.openModal(<DeleteModal />);
+  };
+
+  const openAddToFolderModal = () => {
+    modal.openModal(<AddToFolder />)
+  };
+
+  const POPOVER_INFO = [
+    {
+      option: "삭제하기",
+      callback: openDeleteModal
+    },  
+    {
+      option: "폴더에 추가",
+      callback: openAddToFolderModal
+    }
+  ]
 
   return (
     <Link href={url || './'} target="_blank" rel="noreferrer">
@@ -50,16 +70,13 @@ function FolderItem({
                 e.preventDefault();
                 setIsPopOverVisible(!isPopOverVisible);
               }}
-            />
+            /> 
             <PopOver
               $isPopOverVisible={isPopOverVisible}
               setIsPopOverVisible={setIsPopOverVisible}
-              $options={["삭제하기", "폴더에 추가"]}
-              $modalType={["삭제", "폴더에 추가"]}
+              popOverInfo={POPOVER_INFO}
               $top="20px"
               $right="0px"
-              $isModalVisible={$isModalVisible}
-              setIsModalVisible={setIsModalVisible}
             />
           </TimeContainer>
           <Description>{description}</Description>

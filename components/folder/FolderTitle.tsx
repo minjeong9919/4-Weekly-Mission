@@ -2,25 +2,39 @@ import styled from "styled-components";
 import Share from "@/public/assets/icons/share.svg";
 import Pen from "@/public/assets/icons/pen.svg";
 import Trash from "@/public/assets/icons/trash.svg";
+import { useModal } from "@/contexts/ModalContext";
+import { SharedModal } from "../common/modals/SharedModal";
+import { EditNameModal } from "../common/modals/EditNameModal";
+import { DeleteModal } from "../common/modals/DeleteModal";
 
 type FolderTitlePropsType = {
   titleName: string;
-  setIsModal: any;
 };
 
-const FolderTitle = ({ titleName, setIsModal }: FolderTitlePropsType) => {
+const FolderTitle = ({ titleName }: FolderTitlePropsType) => {
+  const modal = useModal();
+
   const titles = [
     {
       name: "공유",
       svg: <Share />,
+      callback: () => {
+        modal.openModal(<SharedModal />)
+      }
     },
     {
       name: "이름 변경",
       svg: <Pen />,
+      callback: () => {
+        modal.openModal(<EditNameModal />)
+      }
     },
     {
       name: "삭제",
       svg: <Trash />,
+      callback: () => {
+        modal.openModal(<DeleteModal />)
+      }
     },
   ];
 
@@ -32,9 +46,7 @@ const FolderTitle = ({ titleName, setIsModal }: FolderTitlePropsType) => {
           {titles.map((title) => (
             <Option
               key={title.name}
-              onClick={() => {
-                setIsModal(title.name);
-              }}
+              onClick={title.callback}
             >
               {title.svg}
               <OptionText>{title.name}</OptionText>

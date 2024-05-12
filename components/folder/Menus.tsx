@@ -4,17 +4,19 @@ import styled from "styled-components";
 import Union from "@/public/assets/icons/Union.svg";
 import { COLORS } from "../../constants/colors";
 import { useGetPromise } from "@/hooks/useGetPromise";
+import { useModal } from "@/contexts/ModalContext";
+import { AddFolderModal } from "../common/modals/AddFolderModal";
 
 type MenusPropsType = {
   changeTitle: any;
   changeID: any;
-  setIsVisible: any;
 };
 
-const Menus = ({ changeTitle, changeID, setIsVisible }: MenusPropsType) => {
+const Menus = ({ changeTitle, changeID }: MenusPropsType) => {
   const [buttonColors, setButtonColors] = useState([]);
   const fetchedMenuData: any = useGetPromise(getFolderList);
   const menulists = fetchedMenuData?.data ?? [];
+  const modal = useModal();
 
   useEffect(() => {
     const initialButtonColors = setAllWhiteButtonColor();
@@ -49,6 +51,10 @@ const Menus = ({ changeTitle, changeID, setIsVisible }: MenusPropsType) => {
     changeButtonColor(name);
   };
 
+  const addFolderClickHandler = () => {
+    modal.openModal(<AddFolderModal />)
+  }
+
   return (
     <Container>
       <ButtonDiv>
@@ -63,7 +69,7 @@ const Menus = ({ changeTitle, changeID, setIsVisible }: MenusPropsType) => {
           </Button>
         ))}
       </ButtonDiv>
-      <AddFolderDiv onClick={() => setIsVisible("폴더 추가")}>
+      <AddFolderDiv onClick={addFolderClickHandler}>
         <AddFolder>폴더 추가</AddFolder>
         <Union />
       </AddFolderDiv>

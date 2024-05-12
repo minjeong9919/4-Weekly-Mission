@@ -1,48 +1,51 @@
+import { useRef } from "react";
 import styled from "styled-components";
 import closeIcon from "@/public/assets/icons/closeModal.png";
 import Image from "next/image";
-import { RedButton } from "../../../components/common/RedButton";
-import { CommonModalProps } from "@/constants/commonTypes";
+import { RedButton } from "../RedButton";
+import { useModal } from "@/contexts/ModalContext";
+import useOutSideClick from "@/hooks/useOutSideClick";
 
-export const DeleteModal = ({
-  isModalVisible,
-  setIsModalVisible,
-}: CommonModalProps) => {
-  const handleCloseBtn = () => {
-    setIsModalVisible("");
-  };
+
+export const DeleteModal = () => {
+
+  const modal = useModal();
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const onCloseModal = () => {
+    modal.closeModal();
+  } 
+
+  useOutSideClick({ ref: modalRef, callback: onCloseModal});
 
   return (
-    <Background $isVisible={isModalVisible}>
-      <Modal>
-        <Close
-          onClick={(e) => {
-            e.preventDefault();
-            handleCloseBtn();
-          }}
-        >
-          <Image src={closeIcon} alt="closeIcon" />
-        </Close>
-        <Title>
-          <h3>폴더 삭제</h3>
-          <p>폴더명</p>
-        </Title>
-        <RedButton
-          text="삭제하기"
-          width="280px"
-          height="auto"
-          margin="0px"
-          padding="16px 20px"
-          fontSize="16px"
-          radius="8px"
-        />
-      </Modal>
-    </Background>
+      <Background>
+        <Modal ref={modalRef}>
+          <Close
+            onClick={onCloseModal}
+          >
+            <Image src={closeIcon} alt="closeIcon" />
+          </Close>
+          <Title>
+            <h3>폴더 삭제</h3>
+            <p>폴더명</p>
+          </Title>
+          <RedButton
+            text="삭제하기"
+            width="280px"
+            height="auto"
+            margin="0px"
+            padding="16px 20px"
+            fontSize="16px"
+            radius="8px"
+          />
+        </Modal>
+      </Background>
   );
 };
 
-const Background = styled.div<{ $isVisible: string }>`
-  display: ${({ $isVisible }) => ($isVisible === "삭제" ? "block" : "none")};
+const Background = styled.div`
+  visibility: visible;
   z-index: 9999;
   position: fixed;
   top: 0;

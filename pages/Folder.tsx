@@ -10,7 +10,6 @@ import Menus from "../components/folder/Menus";
 import FolderTitle from "../components/folder/FolderTitle";
 import { SharedModal } from "../components/common/modals/SharedModal";
 import { EditNameModal } from "../components/common/modals/EditNameModal";
-import { DeleteModal } from "../components/common/modals/DeleteModal";
 import { AddFolderModal } from "../components/common/modals/AddFolderModal";
 import { COLORS } from "../constants/colors";
 import { CommonFolderInfoProps } from "@/constants/commonTypes";
@@ -94,22 +93,6 @@ const Folder = () => {
 
   return (
     <Container>
-      <SharedModal
-        isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-      />
-      <EditNameModal
-        isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-      />
-      <DeleteModal
-        isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-      />
-      <AddFolderModal
-        isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-      />
       <HeaderElement $positionval="static" />
       <FolderInput
         setIsVisible={setIsModalVisible}
@@ -124,14 +107,11 @@ const Folder = () => {
       <Menus
         changeTitle={setTitleName}
         changeID={setListId}
-        setIsVisible={setIsModalVisible}
       />
-      <FolderTitle titleName={titleName} setIsModal={setIsModalVisible} />
+      <FolderTitle titleName={titleName} />
       {data[0] ? (
         <FolderList
           items={data}
-          $isModalVisible={isModalVisible}
-          setIsModalVisible={setIsModalVisible}
         />
       ) : (
         <NoLinkMsg>저장된 링크가 없습니다.</NoLinkMsg>

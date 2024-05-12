@@ -102,6 +102,7 @@ const InputBoxFixed = styled(InputBox)`
 
 const Input = styled.input`
   width: 100%;
+  height: min-content;
   border: none;
   margin-left: 12px;
 
@@ -112,7 +113,7 @@ const Input = styled.input`
   &::placeholder {
     color: #9fa6b2;
     font-family: Pretendard;
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;

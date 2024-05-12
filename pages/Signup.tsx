@@ -33,11 +33,15 @@ export default function Signup() {
       let result;
       try {
         result = await postSignUp(postJsonValue);
+        
       } catch (error) {
         console.error(error);
       }
 
-      if(result.error) {
+      if(result.data) {
+        localStorage.save("accessToken", result.data.accessToken);
+        location.assign("/Folder");
+      } else if(result.error) {
         toast.setText("회원가입에 실패하였습니다.");
         toast.setViewToast(true);
       }

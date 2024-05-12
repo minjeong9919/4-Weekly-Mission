@@ -29,7 +29,7 @@ export default function Signin() {
 
   useEffect(() => {
     localStorage.remove("accssToken");
-    // localStorage.get("accessToken") && location.assign("/Folder");
+    localStorage.get("accessToken") && location.assign("/Folder");
   }, []);
 
 

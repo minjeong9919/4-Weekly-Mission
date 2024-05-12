@@ -1,47 +1,56 @@
 import styled from "styled-components";
 import { DeleteModal } from "@/components/common/modals/DeleteModal";
 import { AddToFolder } from "@/components/common/modals/AddToFolder";
+import { useEffect, useRef } from "react";
 
 type PopOverPropTypes = {
   $isPopOverVisible: boolean;
   setIsPopOverVisible: any;
-  $options: string[];
-  $modalType: any;
+  popOverInfo: {
+    option: string;
+    callback: () => void;
+  } [];
   $top: string;
   $right: string;
-  $isModalVisible: string;
-  setIsModalVisible: any;
 };
 
 export const PopOver = ({
   $isPopOverVisible,
-  $options,
-  $modalType,
+  setIsPopOverVisible,
+  popOverInfo,
   $top,
   $right,
-  $isModalVisible,
-  setIsModalVisible,
 }: PopOverPropTypes) => {
+
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  useEffect (() => {
+    const handleClick = (e: MouseEvent) => {
+      if(popoverRef.current && !popoverRef.current.contains(e.target as Node)) {
+        setIsPopOverVisible(false);
+      }
+    }
+
+    window.addEventListener('mousedown', handleClick);
+
+    return ()=> window.removeEventListener('mousedown', handleClick);
+  })
+
+
+
   return (
     <>
-      <DeleteModal
-        isModalVisible={$isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-      />
-      <AddToFolder
-        isModalVisible={$isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-      />
-      <MenuOptions $isVisible={$isPopOverVisible} $top={$top} $right={$right}>
-        {$options.map((option, index) => (
+      <MenuOptions $isVisible={$isPopOverVisible} $top={$top} $right={$right} ref={popoverRef}>
+        {popOverInfo.map((option) => (
           <Option
-            key={option}
+            key={option.option}
             onClick={(e) => {
               e.preventDefault();
-              setIsModalVisible($modalType[index]);
+              e.stopPropagation();
+              option.callback();
             }}
           >
-            {option}
+            {option.option}
           </Option>
         ))}
       </MenuOptions>
@@ -64,6 +73,7 @@ const MenuOptions = styled.div<PropsType>`
   display: ${({ $isVisible }) => ($isVisible ? "block" : "none")};
   background-color: #fff;
   z-index: 1;
+  box-shadow: 3px 8px 15px -4px rgba(0,0,0,0.38);
 `;
 
 const Option = styled.p`

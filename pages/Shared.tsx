@@ -5,13 +5,10 @@ import FooterElement from "../components/common/FooterElement";
 import SharedSection from "../components/shared/SharedSection";
 import Input from "../components/common/Input";
 import FolderList from "../components/common/FolderList";
-import { AddFolderModal } from "../components/common/modals/AddFolderModal";
-import { DeleteModal } from "@/components/common/modals/DeleteModal";
 import { OwnerProps } from "@/constants/commonTypes";
 
 export default function Shared() {
   const [searchInputValue, setSearchInputValue] = useState("");
-  const [isModalVisible, setIsModalVisible] = useState("");
   const [data, setData] = useState([]);
   const [folderName, setFolderName] = useState("");
   const [owner, setOwner] = useState<OwnerProps>({
@@ -37,14 +34,6 @@ export default function Shared() {
 
   return (
     <>
-      <DeleteModal
-        isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-      />
-      <AddFolderModal
-        isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-      />
       <HeaderElement $positionval="" />
       <SharedSection folderName={folderName} owner={owner} />
       <Input
@@ -55,8 +44,6 @@ export default function Shared() {
       {data[0] ? (
         <FolderList
           items={data}
-          $isModalVisible={isModalVisible}
-          setIsModalVisible={setIsModalVisible}
         />
       ) : null}
       <FooterElement />

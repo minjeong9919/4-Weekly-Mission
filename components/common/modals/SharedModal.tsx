@@ -1,21 +1,26 @@
+import { useRef } from "react";
 import styled from "styled-components";
 import closeIcon from "@/public/assets/icons/closeModal.png";
 import Image from "next/image";
-import { CommonModalProps } from "@/constants/commonTypes";
+import { useModal } from "@/contexts/ModalContext";
+import useOutSideClick from "@/hooks/useOutSideClick";
 import { SOCIAL_ICONS } from "@/constants/socialIcon";
 
-export const SharedModal = ({
-  isModalVisible,
-  setIsModalVisible,
-}: CommonModalProps) => {
-  const handleCloseBtn = () => {
-    setIsModalVisible("");
-  };
+export const SharedModal = () => {
+
+  const modal = useModal();
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const onCloseModal = () => {
+    modal.closeModal();
+  } 
+
+  useOutSideClick({ ref: modalRef, callback: onCloseModal});
 
   return (
-    <Background $isVisible={isModalVisible}>
-      <Modal>
-        <Close onClick={() => handleCloseBtn()}>
+    <Background>
+      <Modal ref={modalRef}>
+        <Close onClick={onCloseModal}>
           <Image src={closeIcon} alt="closeIcon" />
         </Close>
         <Title>
@@ -42,8 +47,7 @@ type BackgroundPropsType = {
   $backgroundColor?: string;
 };
 
-const Background = styled.div<BackgroundPropsType>`
-  display: ${({ $isVisible }) => ($isVisible === "공유" ? "block" : "none")};
+const Background = styled.div`
   z-index: 9999;
   position: fixed;
   top: 0;

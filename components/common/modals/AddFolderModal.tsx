@@ -1,22 +1,27 @@
+import { useRef } from "react";
 import styled from "styled-components";
 import { BlueButton } from "../BlueButton";
-// import closeIcon from '@/public/assets/icons/closeModal.png';
+import closeIcon from '@/public/assets/icons/closeModal.png';
 import Image from "next/image";
-import { CommonModalProps } from "@/constants/commonTypes";
+import { useModal } from "@/contexts/ModalContext";
+import useOutSideClick from "@/hooks/useOutSideClick";
 
-export const AddFolderModal = ({
-  isModalVisible,
-  setIsModalVisible,
-}: CommonModalProps) => {
-  const handleCloseBtn = () => {
-    setIsModalVisible("");
-  };
+export const AddFolderModal = () => {
 
+  const modal = useModal();
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const onCloseModal = () => {
+    modal.closeModal();
+  } 
+
+  useOutSideClick({ ref: modalRef, callback: onCloseModal});
+  
   return (
-    <Background $isVisible={isModalVisible}>
-      <Modal>
-        <Close onClick={() => handleCloseBtn()}>
-          {/* <Image src={closeIcon} alt="닫기 아이콘" /> */}
+    <Background>
+      <Modal ref={modalRef}>
+        <Close onClick={onCloseModal}>
+          <Image src={closeIcon} alt="닫기 아이콘" />
         </Close>
         <Title>폴더 추가</Title>
         <Input placeholder="내용 입력" />
@@ -34,9 +39,7 @@ export const AddFolderModal = ({
   );
 };
 
-const Background = styled.div<{ $isVisible: string }>`
-  display: ${({ $isVisible }) =>
-    $isVisible === "폴더 추가" ? "block" : "none"};
+const Background = styled.div`
   z-index: 9999;
   position: fixed;
   top: 0;

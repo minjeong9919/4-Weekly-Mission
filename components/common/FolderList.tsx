@@ -4,30 +4,18 @@ import { CommonFolderInfoProps } from "@/constants/commonTypes";
 
 type FolderPropsType = {
   items: CommonFolderInfoProps[];
-  $isModalVisible: any;
-  setIsModalVisible: any;
 };
 
 function FolderList({
   items,
-  $isModalVisible,
-  setIsModalVisible,
 }: FolderPropsType) {
+
   return (
     <FolderListContainerDiv>
       <FolderListGridBoxDiv>
-        {items.map((item: CommonFolderInfoProps) => {
-          {
-            return (
-              <FolderItem
-                item={item}
-                key={item.id}
-                $isModalVisible={$isModalVisible}
-                setIsModalVisible={setIsModalVisible}
-              />
-            );
-          }
-        })}
+        {items.map((item: CommonFolderInfoProps) => (
+            <FolderItem item={item} key={item.id} />
+          ))}
       </FolderListGridBoxDiv>
     </FolderListContainerDiv>
   );

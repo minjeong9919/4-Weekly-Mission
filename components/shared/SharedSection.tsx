@@ -1,4 +1,4 @@
-import icon_smile from "@/assets/icons/icon_smile.png";
+import icon_smile from "@/public/assets/icons/icon_smile.png";
 import styled from "styled-components";
 import { OwnerProps } from "@/constants/commonTypes";
 
