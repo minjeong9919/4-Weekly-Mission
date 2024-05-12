@@ -12,6 +12,7 @@ type EmailPwdInputPropsType = {
   eventFunc: {
     onFocusOut: () => void;
     onChange: () => void;
+    onKeydown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   }
   inputErrorInfo: INPUT_ERROR_INFO;
   inputRef: React.RefObject<HTMLInputElement>
@@ -129,6 +130,7 @@ const EmailPwdInput = ({
         inputErrorInfo={inputErrorInfo}
         onChange={eventFunc.onChange}
         onBlur={eventFunc.onFocusOut}
+        onKeyDown={eventFunc.onKeydown}
         ref={inputRef}
       />
       {type==="password" && (

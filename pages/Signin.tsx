@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, ChangeEvent } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
@@ -43,8 +43,8 @@ export default function Signin() {
         toast.setText("로그인에 성공하지 못햇습니다.");
         console.log(result);
       }
-  };
-}
+    };
+  }
   
   const emailFocusOutHandler = () => {
     const emailInputStatus = emailInputValidationcheck(emailValue);
@@ -67,15 +67,25 @@ export default function Signin() {
       setPasswordValue(passwordInputRef.current.value)
     }
   }
+
+  const onEnterKeyHandler = (e:React.KeyboardEvent<HTMLInputElement>) => {
+    if(e.key === 'Enter') {
+      emailInputRef?.current?.blur();
+      passwordInputRef?.current?.blur();
+      trySignin();
+    }
+  }
   
     const emailventFunc = { 
       onFocusOut: emailFocusOutHandler,
-      onChange: emailChangeHandler
+      onChange: emailChangeHandler,
+      onKeydown: onEnterKeyHandler,
     }
 
     const passwordEventFunc = {
       onFocusOut: passwordFocusOutHandler,
       onChange: passwordChangeHandler,
+      onKeydown: onEnterKeyHandler,
     }
   
 

@@ -52,6 +52,11 @@ const ToastContainer = styled.div<{ isToastView: boolean } >`
     align-items: center;
     box-shadow: 0px 10px 29px -14px rgba(0,0,0,1);
     visibility: ${({isToastView}) => isToastView ? "visible" : "hidden"};
+
+    @media (max-width: 767px) {
+        width: 90%;
+        font-size: 13px;
+    }
 `;
 
 const ErrorMessageDiv = styled.div`
