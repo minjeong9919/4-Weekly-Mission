@@ -7,7 +7,7 @@ function emailCheck(email_address: string) {
   return Boolean(email_regex.test(email_address));
 }
 
-type EmailValid =
+type ErrorValid =
   // error
     {
       errorName: string;
@@ -17,8 +17,8 @@ type EmailValid =
   | "valid";
 
 // 이메일 에러 검사
-export const emailInputValidationcheck = (email: string): ErrorType => {
-  let emailValid: EmailValid;
+export const emailInputValidationcheck = (email: string): ErrorValid => {
+  let emailValid: ErrorValid;
   if (!email) {
     emailValid = INPUT_STATUS.noEmail;
   } else if (!emailCheck(email)) {
@@ -41,8 +41,8 @@ export const emailDuplicationCheck = async (email: string) => {
 // 로그인할 때 비밀번호 에러 검사
 export const loginPasswordInputValidationcheck = (
   password: string | undefined
-): EmailValid => {
-  let status: EmailValid;
+): ErrorValid => {
+  let status: ErrorValid;
   if (!password) {
     status = INPUT_STATUS.noPassword;
   } else {
@@ -52,11 +52,11 @@ export const loginPasswordInputValidationcheck = (
 };
 
 // 회원가입할 때 비밀번호 에러 검사
-export const signInPasswordInputValidationcheck = (
+export const signUpPasswordInputValidationcheck = (
   password: string | undefined,
   password2?: string | undefined
-): ErrorType => {
-  let status: ErrorType;
+): ErrorValid => {
+  let status: ErrorValid;
   if (!password) {
     status = INPUT_STATUS.noPassword;
   } else if (!passwordCheck(password)) {
@@ -74,11 +74,6 @@ export const signInPasswordInputValidationcheck = (
 function passwordCheck(password: string): boolean {
   let password_regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   return password_regex.test(password);
-}
-
-// 비밀번호 중복 확인
-export function isMatch(password1: string, password2: string) {
-  return password1 === password2;
 }
 
 export { emailCheck, passwordCheck };

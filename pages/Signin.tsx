@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, ChangeEvent } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,6 +13,7 @@ import { postSignIn } from "@/api/api";
 import INPUT_ERROR_INFO from "@/type/inputErrorInfo";
 import { emailInputValidationcheck, loginPasswordInputValidationcheck } from "@/utils/validation";
 import { useToast } from "@/contexts/ToastContext";
+import { localStorage } from "@/utils/localStorage";
 
 export default function Signin() {
   const [emailValue, setEmailValue] = useState("");
@@ -26,6 +27,12 @@ export default function Signin() {
   const toast = useToast();
 
 
+  useEffect(() => {
+    localStorage.remove("accssToken");
+    // localStorage.get("accessToken") && location.assign("/Folder");
+  }, []);
+
+
   const trySignin = async () => {
     let result;
     if (emailErrorInfo==="valid" && passwordErrorInfo === "valid") {
@@ -37,7 +44,8 @@ export default function Signin() {
       }
 
       if(result.data) {
-        location.assign('/folder');
+        localStorage.save("accessToken", result.data.accessToken);
+        location.assign("/Folder");
       } else if (result.error) {
         toast.setViewToast(true);
         toast.setText("로그인에 성공하지 못햇습니다.");
@@ -118,20 +126,6 @@ export default function Signin() {
             inputErrorInfo={passwordErrorInfo}
             inputRef={passwordInputRef}
           />
-          { /*
-          <EmailPwdInput
-            title="비밀번호 확인"
-            type="password"
-            valueType="password2"
-            isEyeIcon={true}
-            setEmailValue={setEmailValue}
-            emailValue={emailValue}
-            setPasswordValue={setPasswordValue}
-            passwordValue={passwordValue}
-            onEnterButtonClick={trySignin}
-            setIsPasswordConfirmValid={setIsPasswordConfirmValid}
-            signInStatus={signInStatus}
-          /> */}
         </InputBoxDiv>
         <BlueButton
           text="회원가입"
