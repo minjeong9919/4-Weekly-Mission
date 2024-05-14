@@ -31,7 +31,7 @@ function timeToString(time: number) {
   return `${diffYear} years ago`;
 }
 
-export function CalcTime(time: string) {
+export function calcTime(time: string) {
   const nowTime = Date.now();
   const writingTime = Date.parse(time);
   const diffTime = nowTime - writingTime;

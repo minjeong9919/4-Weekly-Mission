@@ -3,7 +3,7 @@ import { postCheckDuplicationEmail } from "@/api/api";
 
 // 이메일 유효성 검사
 function emailCheck(email_address: string) {
-  let email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+  const email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
   return Boolean(email_regex.test(email_address));
 }
 

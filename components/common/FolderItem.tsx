@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { CalcTime } from "@/utils/calculator";
+import { calcTime } from "@/utils/calculator";
 import Star from "@/public/assets/icons/card_star.svg";
 import Kebab from "@/public/assets/icons/kebab.svg";
 import logo from "@/public/assets/icons/logo.png";
@@ -25,7 +25,7 @@ function FolderItem({
   const [isPopOverVisible, setIsPopOverVisible] = useState(false);
   const createdAtTime: string = String(createdAt ?? created_at);
 
-  const time = CalcTime(createdAtTime);
+  const time = calcTime(createdAtTime);
   const img_src = image_source || imageSource;
 
   const modal = useModal();
